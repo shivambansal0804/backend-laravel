@@ -15,10 +15,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Login
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
 
+// Password Reset
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+// Superuser Routes
 Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], function() {
+
+    // Dashboard
     Route::get('/', 'User\SuperuserController@index');
+
+    // Roles
+    Route::get('/roles', 'RoleController@index')->name('roles.index');
+    
+    // Permissions
+    Route::get('/permissions', 'PermissionController@index')->name('permissions.index');
+
+    // new user
     
 });
 
@@ -27,4 +46,7 @@ Route::get('/users', [
     'uses' => 'User\SuperuserController@index'
 ]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+});
