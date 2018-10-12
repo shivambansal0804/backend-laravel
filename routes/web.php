@@ -38,7 +38,8 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], func
     Route::get('/permissions', 'PermissionController@index')->name('permissions.index');
 
     // new user
-    
+    Route::get('/users/create', 'User\SuperuserController@createUser')->name('users.create');
+    Route::post('/users', 'User\SuperuserController@storeUser')->name('users.store');
 });
 
 Route::get('/users', [
