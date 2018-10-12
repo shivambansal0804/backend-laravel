@@ -35,8 +35,17 @@ class SuperuserController extends Controller
      */
     public function storeUser(StoreUser $request)
     {
-        // return view('users.create');
-        // $user = User::create($request);
-        return $request;
+        $data = [
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => $request->password
+        ];
+
+        $role = Role::where('name', $request->role)->firstOrFail();
+        
+        $user = User::create($data);
+
+        if($user) $user->attachRole($role); 
+        return $user;
     }
 }
