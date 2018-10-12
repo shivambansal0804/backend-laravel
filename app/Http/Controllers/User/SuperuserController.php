@@ -16,6 +16,20 @@ class SuperuserController extends Controller
     }
 
     /**
+     * Display a listing of users
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexUser()
+    {
+        $users = User::with('roles')->latest()->get();
+
+        return view('users.index', [
+            'users' => $users
+        ]);
+    }
+
+    /**
      * Show the for for creating new users
      * @return newly created user
      */
@@ -42,10 +56,10 @@ class SuperuserController extends Controller
         ];
 
         $role = Role::where('name', $request->role)->firstOrFail();
-        
+
         $user = User::create($data);
 
         if($user) $user->attachRole($role); 
-        return $user;
+        return redirect()->route('users.index');
     }
 }

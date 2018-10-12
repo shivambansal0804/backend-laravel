@@ -1,7 +1,7 @@
 @extends('layouts.app') 
 @section('content') 
     <h3>All Permissions</h3>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
