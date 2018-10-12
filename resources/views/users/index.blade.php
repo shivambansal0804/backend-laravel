@@ -14,7 +14,11 @@
     <tbody>
         @foreach ($users as $item)
         <tr>
-            <td>{{$item->name}}</td>
+            <td>
+                <a href="/superuser/users/{{ $item->email}}">
+                    {{$item->name}}
+                </a>
+            </td>
             <td>{{$item->email}}</td>
             <td>{{$item->username}}</td>
             <td>

@@ -62,4 +62,20 @@ class SuperuserController extends Controller
         if($user) $user->attachRole($role); 
         return redirect()->route('users.index');
     }
+
+    /**
+     * Display the specified user
+     *
+     * @param  int  $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function showUser($email)
+    {
+        $user = User::whereEmail($email)->with([
+                    'roles', 
+                    'permissions'
+                ])->firstOrFail();
+        
+        return view('users.show', ['user' => $user]);
+    }
 }

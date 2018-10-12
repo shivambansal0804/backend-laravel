@@ -30,8 +30,7 @@ class LoginController extends Controller
     {
         if(Auth::user()->hasRole('superuser')) return '/superuser'; 
         elseif(Auth::user()->hasRole('council')) return '/council';
-        else return '/dashboard';       
-         
+        else return '/dashboard';  
     }
 
     /**

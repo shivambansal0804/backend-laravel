@@ -24,6 +24,8 @@ class User extends Authenticatable
         'name', 
         'email', 
         'username',
+        'avatar',
+        'activated',
         'bio',
         'data_of_birth',
         'linkedin',
@@ -40,6 +42,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 
     ];
 }

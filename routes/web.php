@@ -29,7 +29,7 @@ Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetFor
 Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], function() {
 
     // Dashboard
-    Route::get('/', 'User\SuperuserController@index');
+    Route::get('/', 'User\SuperuserController@index')->name('superuser.dashboard');
 
     // Roles
     Route::get('/roles', 'RoleController@index')->name('roles.index');
@@ -37,10 +37,11 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], func
     // Permissions
     Route::get('/permissions', 'PermissionController@index')->name('permissions.index');
 
-    // new user
+    // user
     Route::get('/users', 'User\SuperuserController@indexUser')->name('users.index');
     Route::get('/users/create', 'User\SuperuserController@createUser')->name('users.create');
     Route::post('/users', 'User\SuperuserController@storeUser')->name('users.store');
+    Route::get('/users/{email}', 'User\SuperuserController@showUser')->name('users.show');
 });
 
 Route::get('/users', [
