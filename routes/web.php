@@ -17,4 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], function() {
+    Route::get('/', 'User\SuperuserController@index');
+    
+});
+
+Route::get('/users', [
+    'middleware' => ['permission:create-users'],
+    'uses' => 'User\SuperuserController@index'
+]);
+
 Route::get('/home', 'HomeController@index')->name('home');
