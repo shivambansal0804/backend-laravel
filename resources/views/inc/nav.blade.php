@@ -19,6 +19,13 @@
                 <!-- Authentication Links -->
 
                 @auth
+                    @if (!auth()->user()->hasRole('photographer'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('stories.create') }}">Create Story</a>
+                        </li>
+                        <div class="nav-item"><a href="{{ route('stories.index')}}" class="nav-link">Story</a></div>
+                    @endif
+
                     @if (auth()->user()->hasRole('superuser'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('roles.index') }}">{{ __('Roles') }}</a>

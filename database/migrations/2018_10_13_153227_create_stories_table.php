@@ -15,6 +15,20 @@ class CreateStoriesTable extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid')->unique();
+            $table->integer('user_id')->unsigned();
+            $table->text('title');
+            $table->text('biliner')->nullable();
+            $table->string('slug')->unique();
+            $table->longText('body');
+            $table->enum('status', ['draft', 'pending', 'published']);
+            $table->integer('category_id')->nullable()->unsigned();
+            $table->string('cover')->nullable();
+            $table->integer('views')->default(0);
+            $table->integer('likes')->default(0);
+            $table->text('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->timestamp('deleted_at');
             $table->timestamps();
         });
     }

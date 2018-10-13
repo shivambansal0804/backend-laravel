@@ -3,8 +3,28 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Uuids;
+use App\User;
 
 class Story extends Model
 {
-    //
+    use SoftDeletes;
+    use Uuids;
+
+    protected $fillable = [
+        'user_id', 'category_id',
+        'title', 'biliner', 'slug',
+        'body', 'status', 'cover',
+        'views', 'likes', 
+        'meta_title', 'meta_description'
+    ];
+
+    /**
+     * Inverse of User's has Many
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

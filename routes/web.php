@@ -82,4 +82,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+    // Stories Routes
+    Route::middleware(['role:superuser|council|columnist|coordinator'])->group(function () {
+        Route::get('/stories', 'StoryController@index')->name('stories.index');
+        Route::get('/stories/create', 'StoryController@create')->name('stories.create');
+        Route::post('/stories', 'StoryController@store')->name('stories.store');
+        Route::get('/stories/{uuid}', 'StoryController@show')->name('stories.show');
+        Route::get('/stories/{uuid}/edit', 'StoryController@edit')->name('stories.edit');
+        Route::put('/stories/{uuid}', 'StoryController@update')->name('stories.update');
+        Route::delete('/stories/{uuid}', 'StoryController@destroy')->name('stories.destroy');
+    });
 });
