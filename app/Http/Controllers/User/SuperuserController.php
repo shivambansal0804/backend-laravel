@@ -176,8 +176,10 @@ class SuperuserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($uuid)
+    public function destroyUser($uuid)
     {
-        //
+        $user = User::whereUuid($uuid)->firstOrFail();
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }
