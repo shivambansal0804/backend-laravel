@@ -77,8 +77,8 @@
 
                             <div class="form-group row">
                                 <label for="instagram" class="col-sm-4 col-form-label text-md-right">
-                                                                                            instagram
-                                                                                        </label>
+                                    instagram
+                                </label>
                             
                                 <div class="col-md-6">
                                     <input id="instagram" type="text" class="form-control" name="instagram" value="{{ old('instagram') ? old('instagram') : $user->instagram }}">
@@ -87,8 +87,8 @@
 
                             <div class="form-group row">
                                 <label for="medium" class="col-sm-4 col-form-label text-md-right">
-                                                                                            medium
-                                                                                        </label>
+                                    medium
+                                </label>
                             
                                 <div class="col-md-6">
                                     <input id="medium" type="text" class="form-control" name="medium" value="{{ old('medium') ? old('medium') : $user->medium }}">
@@ -101,7 +101,17 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="display_mail" type="email" class="form-control" name="medium" value="{{ old('display_mail') ? old('display_mail') : $user->display_mail }}">
+                                    <input id="display_mail" type="email" class="form-control" name="display_mail" value="{{ old('display_mail') ? old('display_mail') : $user->display_mail }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="avatar" class="col-sm-4 col-form-label text-md-right">
+                                    Display avatar
+                                </label>
+                            
+                                <div class="col-md-6">
+                                    <input disabled id="avatar" type="file" class="form-control" name="avatar" value="{{ old('avatar') ? old('avatar') : $user->avatar }}">
                                 </div>
                             </div>
 
@@ -121,7 +131,8 @@
             </div>
         </div>
     </div>
-<p>avatar: {{$user->avatar}} </p>
+
+
 <p>data_of_birth: {{$user->data_of_birth}} </p>
 
 @endsection

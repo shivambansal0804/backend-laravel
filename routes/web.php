@@ -62,7 +62,7 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser', 'check
 
 Route::group(['prefix' => 'council', 'middleware' => ['role:council', 'checkActivatedUser']], function() {
     // Dashboard
-    Route::get('/', 'User\SuperuserController@index')->name('superuser.dashboard');
+    Route::get('/', 'User\SuperuserController@index')->name('council.dashboard');
 });
 
 

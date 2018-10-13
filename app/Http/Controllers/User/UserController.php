@@ -69,7 +69,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $uuid)
     {
-        return 1;
+        $user = auth()->user()->update($request->all());
+
+        auth()->user()->update([
+            'activated' => true
+        ]);
+
+        return redirect()->route('dashboard');
     }
 
     /**
