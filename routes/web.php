@@ -72,6 +72,8 @@ Route::get('/users', [
     'uses' => 'User\SuperuserController@index'
 ]);
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/me/info', 'User\UserController@info')->name('me.info');
     Route::put('/user/{uuid}', 'User\UserController@update')->name('me.update');
