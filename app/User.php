@@ -7,7 +7,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;    
 use App\Traits\Uuids;
-use App\Story;
 
 class User extends Authenticatable
 {
@@ -21,19 +20,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 
-        'email', 
-        'username',
-        'avatar',
-        'activated',
-        'bio',
-        'data_of_birth',
-        'linkedin',
-        'facebook',
-        'instagram',
+        'name', 'email', 
+        'username', 'avatar',
+        'activated', 'bio',
+        'data_of_birth', 'linkedin',
+        'facebook', 'instagram',
         'display_mail',
-        'medium',
-        'password',
+        'medium', 'password',
     ];
 
     /**

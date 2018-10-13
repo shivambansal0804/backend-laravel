@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Category, Tag};
+use App\{Category, Tag, Story};
 
 class StoryController extends Controller
 {
@@ -15,9 +15,10 @@ class StoryController extends Controller
      */
     public function index()
     {
+
         // $stories = auth()->user()->story()->latest()->get();
 
-        $stories = auth()->user()->story()->get();
+        $stories = Story::all();
 
         return $stories;
         
@@ -81,7 +82,7 @@ class StoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return 1;
     }
 
     /**
@@ -93,7 +94,7 @@ class StoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return 2;
     }
 
     /**
