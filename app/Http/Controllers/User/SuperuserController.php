@@ -135,6 +135,42 @@ class SuperuserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  string  $email
+     * @return \Illuminate\Http\Response
+     */
+    public function editRoleUser($uuid)
+    {
+        $user = User::whereUuid($uuid)->with('roles')->firstOrFail();
+        
+        $allRole = Role::all();
+
+        return view('users.role', [
+            'user' => $user,
+            'allRole' => $allRole
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRoleUser(Request $request, $uuid)
+    {
+        $user = User::whereUuid($uuid)->firstOrFail();
+
+        $role = Role::where('name', $request->role)->firstOrFail();
+
+        $user->syncRoles([$role->id]);
+
+        return redirect()->route('users.show', $user->uuid);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

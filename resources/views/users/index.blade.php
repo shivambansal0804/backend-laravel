@@ -21,7 +21,8 @@
                 </a>
             </td>
             <td>
-                <a href="{{ route('users.permission.edit', $item->uuid) }}">permission</a>
+                <a href="{{ route('users.permission.edit', $item->uuid) }}">permission</a>               
+                <a href="{{ route('users.role.edit', $item->uuid) }}"> role</a>
             </td>
             <td>{{$item->email}}</td>
             <td>{{$item->username}}</td>

@@ -38,12 +38,16 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], func
     Route::get('/permissions', 'PermissionController@index')->name('permissions.index');
 
     // user
-    Route::get('/users', 'User\SuperuserController@indexUser')->name('users.index');
-    Route::get('/users/create', 'User\SuperuserController@createUser')->name('users.create');
-    Route::post('/users', 'User\SuperuserController@storeUser')->name('users.store');
-    Route::get('/users/{email}', 'User\SuperuserController@showUser')->name('users.show');
-    Route::get('/users/{email}/permissions', 'User\SuperuserController@editPermissionUser')->name('users.permission.edit');
-    Route::post('/users/{email}/permissions', 'User\SuperuserController@updatePermissionUser')->name('users.permission.update');
+        Route::get('/users', 'User\SuperuserController@indexUser')->name('users.index');
+        Route::get('/users/create', 'User\SuperuserController@createUser')->name('users.create');
+        Route::post('/users', 'User\SuperuserController@storeUser')->name('users.store');
+        Route::get('/users/{email}', 'User\SuperuserController@showUser')->name('users.show');
+
+        Route::get('/users/{email}/permissions', 'User\SuperuserController@editPermissionUser')->name('users.permission.edit');
+        Route::post('/users/{email}/permissions', 'User\SuperuserController@updatePermissionUser')->name('users.permission.update');
+
+        Route::get('/users/{email}/role', 'User\SuperuserController@editRoleUser')->name('users.role.edit');
+        Route::post('/users/{email}/role', 'User\SuperuserController@updateRoleUser')->name('users.role.update');
 });
 
 
