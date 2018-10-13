@@ -12,4 +12,14 @@
     <p>instagram: {{$user->instagram}} </p>
     <p>display_mail: {{$user->display_mail}} </p>
     <p>medium: {{$user->medium}} </p>
+    <p>Role: 
+        @foreach ($user->roles as $item)
+            {{$item->name}}
+        @endforeach    
+    </p>
+    <p>Permissions: 
+        @foreach ($user->permissions as $item) 
+            {{$item->name}} 
+        @endforeach
+    </p>
 @endsection

@@ -5,6 +5,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Edit</th>
             <th>Email</th>
             <th>Username</th>            
             <th>Role</th>
@@ -15,9 +16,12 @@
         @foreach ($users as $item)
         <tr>
             <td>
-                <a href="/superuser/users/{{ $item->email}}">
+                <a href="{{ route('users.show', $item->uuid) }}">
                     {{$item->name}}
                 </a>
+            </td>
+            <td>
+                <a href="{{ route('users.permission.edit', $item->uuid) }}">permission</a>
             </td>
             <td>{{$item->email}}</td>
             <td>{{$item->username}}</td>

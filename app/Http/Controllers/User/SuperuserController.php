@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUser;
 use App\User;
 use App\Role;
+use App\Permission;
 
 class SuperuserController extends Controller
 {
@@ -69,13 +70,78 @@ class SuperuserController extends Controller
      * @param  int  $uuid
      * @return \Illuminate\Http\Response
      */
-    public function showUser($email)
+    public function showUser($uuid)
     {
-        $user = User::whereEmail($email)->with([
+        $user = User::whereUuid($uuid)->with([
                     'roles', 
                     'permissions'
                 ])->firstOrFail();
         
         return view('users.show', ['user' => $user]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  string  $email
+     * @return \Illuminate\Http\Response
+     */
+    public function editPermissionUser($uuid)
+    {
+        $user = User::whereUuid($uuid)->firstOrFail();
+        
+        $userPermissions = $user->allPermissions();
+
+        $allPermissions = Permission::all();
+
+        return view('users.permission', [
+            'user' => $user,
+            'userPermissions' => $userPermissions,
+            'allPermissions' => $allPermissions
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePermissionUser(Request $request, $uuid)
+    {
+        // $permissions = [];
+
+        // foreach ($request->pemissions as $key) {
+        //     array_push($permissions, $key);
+        // }
+
+        $user = User::whereUuid($uuid)->firstOrFail();
+
+        // if($user && $permissions) {
+        //     foreach ($permissions as $item) {
+        //         $permission = Permission::where('name', $item)->first();
+
+        //         $user->attachPermission($permission->id);
+        //     }
+        // }
+
+        $permission = Permission::where('name', $request->permissions)->first();
+
+        $user->attachPermission($permission->id);
+
+        return redirect()->route('users.show', $user->uuid);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($uuid)
+    {
+        //
     }
 }
