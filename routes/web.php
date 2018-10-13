@@ -26,7 +26,7 @@ Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 // Superuser Routes
-Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], function() {
+Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser', 'checkActivatedUser']], function() {
 
     // Dashboard
     Route::get('/', 'User\SuperuserController@index')->name('superuser.dashboard');
@@ -60,6 +60,11 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser']], func
         Route::delete('/users/{uuid}', 'User\SuperuserController@destroyUser')->name('users.destroy');
 });
 
+Route::group(['prefix' => 'council', 'middleware' => ['role:council', 'checkActivatedUser']], function() {
+    // Dashboard
+    Route::get('/', 'User\SuperuserController@index')->name('superuser.dashboard');
+});
+
 
 
 Route::get('/users', [
@@ -67,7 +72,12 @@ Route::get('/users', [
     'uses' => 'User\SuperuserController@index'
 ]);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::get('/me/info', 'User\UserController@info')->name('me.info');
+    Route::put('/user/{uuid}', 'User\UserController@update')->name('me.update');
+});
+
+Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 });
