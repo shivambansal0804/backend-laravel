@@ -2,43 +2,41 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     All Categories
                 </div>
 
-                <div class="card-body p-0">
-                    <table class="table">
-                        <thead class="text-center">
-                            <tr>
-                                <th>Name</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="text-center">
-                            @foreach ($categories as $item)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('categories.show', $item->id) }}">
-                                        {{$item->name}}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('categories.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{ route('categories.destroy', $item->id )}}" method="POST">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-body pl-0 pr-0 pb-0">
+                    @foreach ($categories as $item)
+                    <div class="row">
+                        <div class="col col-md-4 text-center">
+                            <h4>
+                                {{ $item->name }}
+                            </h4>
+                        </div>
+                        <div class="col pt-1">
+                            <a href="{{ route('categories.show', $item->slug)}}">
+                                view
+                            </a>
+                        </div>
+                        @if (auth()->user()->can('update-category'))
+                            <div class="col pt-1">
+                                <a href="{{ route('categories.edit', $item->id) }}" class="mt-1">Edit</a>
+                            </div>
+                        @endif
+                        @if (auth()->user()->can('delete-category'))
+                            <div class="col">
+                                <form action="{{ route('categories.destroy', $item->id )}}" method="POST">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="btn btn-link">Delete</button>
+                                </form>
+                            </div>
+                        @endif
+                    </div>
+                    <hr class="mb">
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -26,8 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return 1;
-        return view('categories.index');
+        return view('categories.create');
     }
 
     /**
@@ -38,7 +37,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = Category::create([
+            'name' => $request->name,
+            'slug' => str_slug($request->name, '-') 
+        ]);
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -47,9 +51,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        return 6;
+        $category = Category::whereSlug($slug)->first();
+
+        $stories = $category->story()->latest()->get();
+
+        return view('categories.show', ['category' => $category, 'stories' => $stories]);
     }
 
     /**
@@ -83,6 +91,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+
+        return redirect()->route('categories.index');
     }
 }

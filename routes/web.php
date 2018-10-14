@@ -84,11 +84,6 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     
     // Categories Routes 
-        // All Category
-        Route::middleware('permission:read-category')->group(function () {
-            Route::get('/categories', 'CategoryController@index')->name('categories.index');
-            Route::get('/categories/{name}', 'CategoryController@show')->name('categories.show');
-        });
 
         // Create Category
         Route::middleware('permission:create-category')->group(function () {
@@ -96,10 +91,16 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
             Route::post('/categories', 'CategoryController@store')->name('categories.store');
         });
 
+        // All Category
+        Route::middleware('permission:read-category')->group(function () {
+            Route::get('/categories', 'CategoryController@index')->name('categories.index');
+            Route::get('/categories/{slug}', 'CategoryController@show')->name('categories.show');
+        });        
+
         // Edit Category
         Route::middleware('permission:edit-category')->group(function () {
-            Route::get('/categories/{name}/edit', 'CategoryController@edit')->name('categories.edit');
-            Route::put('/categories/{name}', 'CategoryController@update')->name('categories.update');
+            Route::get('/categories/{slug}/edit', 'CategoryController@edit')->name('categories.edit');
+            Route::put('/categories/{slug}', 'CategoryController@update')->name('categories.update');
         });
 
         // Delete Category

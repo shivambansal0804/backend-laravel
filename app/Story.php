@@ -26,4 +26,12 @@ class Story extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Inverse of Category
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Category', 'category_id');
+    }
 }
