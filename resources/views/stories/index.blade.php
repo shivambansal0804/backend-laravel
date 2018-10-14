@@ -3,40 +3,43 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        All Post
+            <div class="col-md-8">
+                <h2>Stories</h2>
+                <hr>    
+                @foreach ($stories as $item)
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="mb-0"><a class="t-black" href="{{route('stories.show', $item->uuid)}}">{{$item->title}}</a> </h5>
+                        <span class="text-small">
+                            {{ substr($item->biliner, 0, 90) }}
+                        </span>
+                        <div class="mt-1">
+                            <small>
+                                Created <strong>{{ $item->created_at->diffForHumans() }}</strong>
+                            </small>
+                        </div>
+                        
                     </div>
-
-                    <div class="card-body p-0">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Biliner</th>
-                                    <th>Slug</th>
-                                    <th>Body</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($stories as $item)
-                                    <tr>
-                                        <td><a href="{{route('stories.show', $item->uuid)}}">{{$item->title}}</a></td>
-                                        <td>manish</td>
-                                        <td>{{ substr($item->biliner, 0, 90) }}.....</td>                                        
-                                        <td>{{ $item->slug }}</td>
-                                        <td>{!! substr($item->body, 0, 90) !!}{{ strlen(strip_tags($item->body)) > 250 ? '...' : "" }}</td>
-                                        <td>{{ $item->status }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="col-md-1 pt-2">
+                        <form class="" action="{{route('stories.destroy', $item->uuid)}}" method="post">
+                            @csrf @method('DELETE')
+                            <input type="submit" value="Delete" class="btn btn-link p-0">
+                        </form>
                     </div>
+                    <div class="col-md-1 pt-2" style="margin-top:.2rem;">
+                        <a class="t-black" href="{{route('stories.show', $item->uuid)}}">Show</a>
+                    </div>
+                    <div class="col pt-2">
+                        <span class="badge p-1 @if($item->status == 'draft') badge-primary @elseif($item->status == 'published') badge-success @else badge-dark @endif">{{ $item->status }}</span>
+                    </div>
+                    {{-- <div>manish</div>
+                    <div>.....</div>
+                    <div>{{ $item->slug }}</div>
+                    <div>{!! substr($item->body, 0, 90) !!}{{ strlen(strip_tags($item->body)) > 250 ? '...' : "" }}</div>
+                    --}}
                 </div>
+                <hr class="mt-2">
+                @endforeach
             </div>
         </div>
     </div>

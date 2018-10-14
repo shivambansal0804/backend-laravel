@@ -1,0 +1,145 @@
+.custom-input {
+    /* margin-bottom: 1.4rem; */
+}
+
+.custom-input__input {
+    width: 100%;
+    border: none !important;
+    font-weight: 600;
+    color: #222222;
+}
+
+.custom-size-1 {
+    min-height: 2rem;
+    font-size: 2rem;
+}
+
+.custom-input__input:focus {
+  outline: none;
+}
+
+.note-editor.note-frame {
+    border: none !important;
+}
+
+.panel-heading.note-toolbar {
+    padding: 0 !important;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.note-popover .popover-content>.btn-group, .panel-heading.note-toolbar>.btn-group {
+    margin: 0 !important;
+}
+
+.note-btn {
+    background: transparent !important;
+}
+
+.note-btn:focus {
+    outline: none !important;
+}
+
+.note-editor.note-frame .note-statusbar {
+    background: transparent !important;
+}
+
+a, input[type="submit"] {
+    text-decoration: none !important;
+}
+
+.t-black {
+    color: #777777 !important;
+}
+
+.text-small {
+    font-size: .8rem;
+}
+
+
+
+/* ================================== */
+.story-list__box {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.story-list__box--title {
+  font-size: 2.2rem;
+  color: #000;
+  font-weight: 600;
+}
+
+.story-list__box--title::first-letter {
+  text-transform: uppercase;
+}
+
+.story-list__box--subtitle {
+  font-size: 1.8rem;
+  line-height: .80;
+  display: block;
+  color: #000;
+  letter-spacing: normal;
+  margin-bottom: 1rem;
+}
+
+.story-list__box--timeline {
+  display: block;
+  font-size: 1.5rem;
+  color: #777777;
+}
+
+.story-create__input-title {
+  width: 100%;
+  min-height: 4rem;
+  border: none;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.story-create__input-title:focus {
+  outline: none;
+}
+
+.story-create__input-title:-webkit-autofill {
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.story-create__input-textarea {
+  width: 100%;
+  border: none;
+  font-size: 2rem;
+}
+
+.story-create__input-textarea:focus {
+  outline: none;
+}
+
+.story {
+  padding: 1rem 20rem;
+  margin-top: 8rem;
+}
+
+.story__head--user {
+  font-size: 1.6rem;
+  color: #777777;
+  margin-bottom: 1rem;
+}
+
+.story__head--user span {
+  display: block;
+}
+
+.story__head--user .timeline {
+  font-size: 1.4rem;
+}
+
+.story__head--heading {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.story__body {
+  font-size: 2rem;
+}
+
