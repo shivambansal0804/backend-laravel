@@ -68,7 +68,11 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    <a href="{{ route('welcome') }}">Home</a>                    
                     <a href="{{ route('blog.index') }}">Blog</a>
+                    <a href="{{ route('about') }}">About</a>                    
+                    <a href="{{ route('team') }}">Team</a>
+                    <a href="{{ route('contact') }}">Contact</a>
                     @auth
                         <a href="{{ url('/dashboard') }}">Dashboard</a>
                     @else
@@ -79,7 +83,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    DTUTimes
+                    @yield('page_name')
                 </div> 
             </div>
         </div>

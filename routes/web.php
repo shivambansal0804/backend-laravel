@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PageController@welcome')->name('welcome');
+Route::get('/about', 'PageController@about')->name('about');
+Route::get('/contact', 'PageController@contact')->name('contact');
+Route::get('/team', 'PageController@team')->name('team');
 
 // Login
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -64,13 +65,6 @@ Route::group(['prefix' => 'council', 'middleware' => ['role:council', 'checkActi
     // Dashboard
     Route::get('/', 'User\SuperuserController@index')->name('council.dashboard');
 });
-
-
-
-Route::get('/users', [
-    'middleware' => ['permission:create-users'],
-    'uses' => 'User\SuperuserController@index'
-]);
 
 // Blog routes
 Route::group(['prefix' => 'blog'], function() {
