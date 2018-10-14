@@ -14,7 +14,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return Story::where('status', 'published')->latest()->paginate(30);
+        $stories = Story::where('status', 'published')->latest()->with('user')->paginate(30);
+
+        return view('blog.index', ['stories' => $stories]);
     }
 
     /**
@@ -25,7 +27,9 @@ class BlogController extends Controller
      */
     public function show($slug)
     {
-        return Story::where(['slug'=> $slug, 'status' => 'published'])->firstOrFail();
+        $story = Story::where(['slug'=> $slug, 'status' => 'published'])->with('user')->firstOrFail();
+    
+        return view('blog.show', ['story' => $story]);
     }
 
     /**
@@ -35,7 +39,9 @@ class BlogController extends Controller
      */
     public function indexCategory()
     {
-        return Category::all();
+        $categories = Category::all();
+
+        return view('blog.categories.index', ['categories' => $categories ]);
     }
 
     /**
@@ -51,36 +57,8 @@ class BlogController extends Controller
 
         $stories = $category->story()->whereStatus('published')->latest()->get();
 
-        return $stories;
+        return view('blog.categories.show', ['category' => $category, 'stories' => $stories ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function about()
-    {
-        return view('pages.about');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function contact()
-    {
-        return view('pages.contact');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function team()
-    {
-        return view('pages.team');
-    }
+    
 }

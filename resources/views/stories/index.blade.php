@@ -27,9 +27,9 @@
                                     <tr>
                                         <td><a href="{{route('stories.show', $item->uuid)}}">{{$item->title}}</a></td>
                                         <td>manish</td>
-                                        <td>{{ $item->biliner }}</td>                                        
+                                        <td>{{ substr($item->biliner, 0, 90) }}.....</td>                                        
                                         <td>{{ $item->slug }}</td>
-                                        <td>{!! $item->body !!}</td>
+                                        <td>{!! substr($item->body, 0, 90) !!}{{ strlen(strip_tags($item->body)) > 250 ? '...' : "" }}</td>
                                         <td>{{ $item->status }}</td>
                                     </tr>
                                 @endforeach

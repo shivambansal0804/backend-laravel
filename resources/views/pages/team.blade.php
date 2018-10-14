@@ -1,3 +1,6 @@
 @extends('layouts.main') 
-@section('page_name') Teams
+@section('content') 
+<div class="title m-b-md">
+    Team
+</div>
 @endsection

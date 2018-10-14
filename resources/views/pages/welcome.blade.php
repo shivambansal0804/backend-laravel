@@ -1,3 +1,6 @@
 @extends('layouts.main') 
-@section('page_name') Timesnew
+@section('content') 
+<div class="title m-b-md">
+    Timenew
+</div>
 @endsection

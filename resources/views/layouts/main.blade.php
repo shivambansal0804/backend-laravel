@@ -41,12 +41,10 @@
                 top: 18px;
             }
 
-            .content {
-                text-align: center;
-            }
-
             .title {
-                font-size: 84px;
+                font-size: 64px;
+                text-align: center;
+                margin-top: 20%;
             }
 
             .links > a {
@@ -62,30 +60,42 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .container {
+                max-width: calc(70%);
+                margin: 0 auto;
+                margin-bottom: 3rem;
+            }
+
+            hr {
+                height: 1px; border: none; color: #222; background: #22222240;
+            }
+
+            a {
+                text-decoration: none;
+            }
+            
+            .img__wrap { height: 20rem; overflow: hidden}
+            
+            .img {
+                width: 100%;
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ route('welcome') }}">Home</a>                    
-                    <a href="{{ route('blog.index') }}">Blog</a>
-                    <a href="{{ route('about') }}">About</a>                    
-                    <a href="{{ route('team') }}">Team</a>
-                    <a href="{{ route('contact') }}">Contact</a>
-                    @auth
-                        <a href="{{ url('/dashboard') }}">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    @yield('page_name')
-                </div> 
-            </div>
+        @if (Route::has('login'))
+        <div class="top-right links">
+            <a href="{{ route('welcome') }}">Home</a>
+            <a href="{{ route('blog.index') }}">Blog</a>            
+            <a href="{{ route('about') }}">About</a>
+            <a href="{{ route('team') }}">Team</a>
+            <a href="{{ route('contact') }}">Contact</a> @auth
+            <a href="{{ url('/dashboard') }}">Dashboard</a> @else
+            <a href="{{ route('login') }}">Login</a> @endauth
+        </div>
+        @endif
+        <div class="content" style="margin-top:4rem;">
+            @yield('content')
         </div>
     </body>
 </html>

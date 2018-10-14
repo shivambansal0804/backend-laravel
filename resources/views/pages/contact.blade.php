@@ -1,3 +1,6 @@
 @extends('layouts.main') 
-@section('page_name') Contact
+@section('content') 
+<div class="title m-b-md">
+    Contact
+</div>
 @endsection
