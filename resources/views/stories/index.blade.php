@@ -29,11 +29,10 @@
                     <div class="col-md-1 pt-2" style="margin-top:.2rem;">
                         <a class="t-black" href="{{route('stories.show', $item->uuid)}}">Show</a>
                     </div>
-                    <div class="col pt-2">
+                    <div class="col pt-2 text-center">
                         <span class="badge p-1 @if($item->status == 'draft') badge-primary @elseif($item->status == 'published') badge-success @else badge-dark @endif">{{ $item->status }}</span>
                     </div>
-                    {{-- <div>manish</div>
-                    <div>.....</div>
+                    {{-- 
                     <div>{{ $item->slug }}</div>
                     <div>{!! substr($item->body, 0, 90) !!}{{ strlen(strip_tags($item->body)) > 250 ? '...' : "" }}</div>
                     --}}

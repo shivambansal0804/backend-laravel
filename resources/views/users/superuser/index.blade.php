@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 mt-md-5 text-center">
-                <div>
+                <div class="mt-3">
                     <img src="{{ asset('svg/admin.svg')}}" alt="" srcset="" width="250">
                 </div>
                 <br>
