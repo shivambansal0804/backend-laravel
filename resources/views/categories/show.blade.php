@@ -16,7 +16,7 @@
                                     {{$item->title}}
                                 </div>
                                 <div class="col">
-                                    <a href="{{ route('stories.show', $item->uuid)}}">view</a>
+                                    <a href="{{ route('blog.show', $item->slug)}}">view</a>
                                 </div>
                                 <div class="col">
                                     {{ $item->created_at}}

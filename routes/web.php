@@ -72,8 +72,14 @@ Route::get('/users', [
     'uses' => 'User\SuperuserController@index'
 ]);
 
+// Blog routes
+Route::group(['prefix' => 'blog'], function() {
+    // Index page of blog
+    Route::get('/', 'BlogController@index')->name('blog.index');
+    Route::get('/{slug}', 'BlogController@show')->name('blog.show');
+});
 
-
+// First Time Login Routes
 Route::middleware('auth')->group(function () {
     Route::get('/me/info', 'User\UserController@info')->name('me.info');
     Route::put('/user/{uuid}', 'User\UserController@update')->name('me.update');
