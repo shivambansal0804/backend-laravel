@@ -65,9 +65,9 @@ class StoryController extends Controller
      */
     public function show($uuid)
     {
-        $story = auth()->user()->story()->whereUuid($uuid)->firstOrFail();
+        $story = auth()->user()->story()->whereUuid($uuid)->with(['user', 'category'])->firstOrFail();
 
-        return $story;
+        return view('stories.show', ['story' => $story]);
     }
 
     /**
@@ -76,9 +76,11 @@ class StoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        return 1;
+        $story = auth()->user()->story()->whereUuid($uuid)->with(['user', 'category'])->firstOrFail();
+        $categories = Category::all();
+        return view('stories.edit', ['story' => $story, 'categories' => $categories ]);
     }
 
     /**
@@ -88,9 +90,22 @@ class StoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        return 2;
+        $data = [
+            'title'             => $request->title,
+            'body'              => $request->body,
+            'meta_title'        => $request->meta_title,
+            'meta_description'  => $request->meta_description,
+            'category_id'       => $request->category,
+            'biliner'           => $request->biliner,
+            'slug'              => str_slug($request->title, "-"),
+            'cover'             => $request->cover
+        ];
+
+        auth()->user()->story()->where('uuid' , $uuid)->first()->update($data);
+        
+        return redirect()->route('stories.index');
     }
 
     /**

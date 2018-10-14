@@ -25,7 +25,7 @@
                             <tbody>
                                 @foreach ($stories as $item)
                                     <tr>
-                                        <td>{{$item->title}}</td>
+                                        <td><a href="{{route('stories.show', $item->uuid)}}">{{$item->title}}</a></td>
                                         <td>manish</td>
                                         <td>{{ $item->biliner }}</td>                                        
                                         <td>{{ $item->slug }}</td>
