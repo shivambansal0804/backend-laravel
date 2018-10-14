@@ -23,7 +23,30 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('stories.create') }}">Create Story</a>
                         </li>
-                        <div class="nav-item"><a href="{{ route('stories.index')}}" class="nav-link">Story</a></div>
+                        <li class="nav-item">
+                            <a href="{{ route('stories.index')}}" class="nav-link">Story</a>
+                        </li>
+                    @endif
+
+                    @if (auth()->user()->can('read-category'))
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" v-pre>
+                                Categories <span class="caret"></span>
+                            </a>
+                        
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('categories.index') }}">
+                                    {{ __('All categories') }}
+                                </a>
+                        
+                                @if (auth()->user()->can('create-category'))
+                                    <a class="dropdown-item" href="{{ route('categories.create') }}">
+                                        {{ __('Create') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </li>
                     @endif
 
                     @if (auth()->user()->hasRole('superuser'))

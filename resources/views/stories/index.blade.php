@@ -29,7 +29,7 @@
                                         <td>manish</td>
                                         <td>{{ $item->biliner }}</td>                                        
                                         <td>{{ $item->slug }}</td>
-                                        <td>{{ $item->body }}</td>
+                                        <td>{!! $item->body !!}</td>
                                         <td>{{ $item->status }}</td>
                                     </tr>
                                 @endforeach

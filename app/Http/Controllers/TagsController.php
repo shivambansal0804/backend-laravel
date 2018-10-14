@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Category, Tag, Story};
 
-class StoryController extends Controller
+class TagsController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -15,10 +13,7 @@ class StoryController extends Controller
      */
     public function index()
     {
-
-        $stories = auth()->user()->story()->latest()->get();
-        
-        return view('stories.index', ['stories' => $stories]);
+        //
     }
 
     /**
@@ -28,8 +23,7 @@ class StoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('stories.create', ['categories' => $categories]);
+        //
     }
 
     /**
@@ -40,21 +34,7 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $data = [
-            'title'             => $request->title,
-            'body'              => $request->body,
-            'meta_title'        => $request->meta_title,
-            'meta_description'  => $request->meta_description,
-            'category_id'       => $request->category,
-            'biliner'           => $request->biliner,
-            'slug'              => str_slug($request->title, "-"),
-            'cover'             => $request->cover
-        ];
-
-        $story = auth()->user()->story()->create($data);
-
-        return redirect()->route('stories.show', $story->uuid);
+        //
     }
 
     /**
@@ -63,11 +43,9 @@ class StoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($id)
     {
-        $story = auth()->user()->story()->whereUuid($uuid)->firstOrFail();
-
-        return $story;
+        //
     }
 
     /**
@@ -78,7 +56,7 @@ class StoryController extends Controller
      */
     public function edit($id)
     {
-        return 1;
+        //
     }
 
     /**
@@ -90,7 +68,7 @@ class StoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 2;
+        //
     }
 
     /**

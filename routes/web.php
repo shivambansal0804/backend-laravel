@@ -77,11 +77,33 @@ Route::get('/users', [
 Route::middleware('auth')->group(function () {
     Route::get('/me/info', 'User\UserController@info')->name('me.info');
     Route::put('/user/{uuid}', 'User\UserController@update')->name('me.update');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 });
 
 Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+    
+    // Categories Routes 
+        // All Category
+        Route::middleware('permission:read-category')->group(function () {
+            Route::get('/categories', 'CategoryController@index')->name('categories.index');
+            Route::get('/categories/{name}', 'CategoryController@show')->name('categories.show');
+        });
+
+        // Create Category
+        Route::middleware('permission:create-category')->group(function () {
+            Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
+            Route::post('/categories', 'CategoryController@store')->name('categories.store');
+        });
+
+        // Edit Category
+        Route::middleware('permission:edit-category')->group(function () {
+            Route::get('/categories/{name}/edit', 'CategoryController@edit')->name('categories.edit');
+            Route::put('/categories/{name}', 'CategoryController@update')->name('categories.update');
+        });
+
+        // Delete Category
+        Route::delete('/categories/{name}', 'CategoryController@destroy')->name('categories.destroy')->middleware('permission:delete-category');
 
     // Stories Routes
     Route::middleware(['role:superuser|council|columnist|coordinator'])->group(function () {

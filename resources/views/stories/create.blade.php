@@ -30,11 +30,11 @@
                             <label for="" class="col-md-4 text-md-right">Category</label>
                         
                             <select name="category" class="form-control col-md-6">
-                                                    <option value="">Select Category</option>
-                                                    @foreach ($categories as $item)
-                                                        <option value="{{$item->name}}">{{$item->display_name}}</option>
-                                                    @endforeach
-                                                </select>
+                                <option value="">Select Category</option>
+                                @foreach ($categories as $item)
+                                    <option value="{{$item->id}}">{{$item->display_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         
                         <div class="form-group">
