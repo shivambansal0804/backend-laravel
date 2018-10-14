@@ -114,8 +114,9 @@ class StoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        //
+        auth()->user()->story()->whereUuid($uuid)->firstOrFail()->delete();
+        return redirect()->route('stories.index');
     }
 }

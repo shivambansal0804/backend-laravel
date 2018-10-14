@@ -24,6 +24,14 @@
                     <hr>
 
                     <strong>Meta_title</strong> : {{ $story->meta_title }}
+
+                    <hr>
+
+                    <form action="{{route('stories.destroy', $story->uuid)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" value="Delete" class="form-control btn-danger">
+                    </form>
                 </div>
 
                 <div class="card-footer">
