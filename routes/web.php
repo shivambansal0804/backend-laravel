@@ -76,7 +76,18 @@ Route::get('/users', [
 Route::group(['prefix' => 'blog'], function() {
     // Index page of blog
     Route::get('/', 'BlogController@index')->name('blog.index');
+
+    // Blog Category Routes
+    Route::group(['prefix' => 'categories'], function () {
+        // Index of Categories
+        Route::get('/', 'BlogController@indexCategory')->name('blog.categories.index');
+        Route::get('/{slug}', 'BlogController@showCategory')->name('blog.categories.show');
+    });
+    
+    // Single Story Route
     Route::get('/{slug}', 'BlogController@show')->name('blog.show');
+    
+    
 });
 
 // First Time Login Routes
@@ -113,13 +124,14 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::delete('/categories/{name}', 'CategoryController@destroy')->name('categories.destroy')->middleware('permission:delete-category');
 
     // Stories Routes
-    Route::middleware(['role:superuser|council|columnist|coordinator'])->group(function () {
-        Route::get('/stories', 'StoryController@index')->name('stories.index');
-        Route::get('/stories/create', 'StoryController@create')->name('stories.create');
-        Route::post('/stories', 'StoryController@store')->name('stories.store');
-        Route::get('/stories/{uuid}', 'StoryController@show')->name('stories.show');
-        Route::get('/stories/{uuid}/edit', 'StoryController@edit')->name('stories.edit');
-        Route::put('/stories/{uuid}', 'StoryController@update')->name('stories.update');
-        Route::delete('/stories/{uuid}', 'StoryController@destroy')->name('stories.destroy');
+    Route::group(['prefix' => 'stroies', 'middleware' => ['role:superuser|council|columnist|coordinator']], function() {
+        Route::get('/', 'StoryController@index')->name('stories.index');
+        Route::get('/create', 'StoryController@create')->name('stories.create');
+        Route::post('/', 'StoryController@store')->name('stories.store');
+        Route::get('/{uuid}', 'StoryController@show')->name('stories.show');
+        Route::get('/{uuid}/edit', 'StoryController@edit')->name('stories.edit');
+        Route::put('/{uuid}', 'StoryController@update')->name('stories.update');
+        Route::delete('/{uuid}', 'StoryController@destroy')->name('stories.destroy');
     });
+
 });

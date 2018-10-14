@@ -27,4 +27,30 @@ class BlogController extends Controller
     {
         return Story::where(['slug'=> $slug, 'status' => 'published'])->firstOrFail();
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexCategory()
+    {
+        return Category::all();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showCategory($slug)
+    {
+        
+        $category = Category::whereSlug($slug)->first();
+
+        $stories = $category->story()->whereStatus('published')->latest()->get();
+
+        return $stories;
+    }
 }
