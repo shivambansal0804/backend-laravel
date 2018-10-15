@@ -5,7 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2>Stories</h2>
-                <hr>    
+                <hr> 
+
                 @foreach ($stories as $item)
                 <div class="row">
                     <div class="col-md-8">
@@ -21,10 +22,12 @@
                         
                     </div>
                     <div class="col-md-1 pt-2">
-                        <form class="" action="{{route('stories.destroy', $item->uuid)}}" method="post">
-                            @csrf @method('DELETE')
-                            <input type="submit" value="Delete" class="btn btn-link p-0">
-                        </form>
+                        @if ($item->status == 'draft')
+                            <form class="" action="{{route('stories.destroy', $item->uuid)}}" method="post">
+                                @csrf @method('DELETE')
+                                <input type="submit" value="Delete" class="btn btn-link p-0">
+                            </form>
+                        @endif
                     </div>
                     <div class="col-md-1 pt-2" style="margin-top:.2rem;">
                         <a class="t-black" href="{{route('stories.show', $item->uuid)}}">Show</a>

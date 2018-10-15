@@ -116,7 +116,7 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
 
         // Delete Category
         Route::delete('/categories/{name}', 'CategoryController@destroy')->name('categories.destroy')->middleware('permission:delete-category');
-
+        
     // Stories Routes
     Route::group(['prefix' => 'stroies', 'middleware' => ['role:superuser|council|columnist|coordinator']], function() {
         Route::get('/', 'StoryController@index')->name('stories.index');

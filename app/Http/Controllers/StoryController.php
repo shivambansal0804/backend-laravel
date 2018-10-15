@@ -40,7 +40,6 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
-        
         $data = [
             'title'             => $request->title,
             'body'              => $request->body,
@@ -48,8 +47,9 @@ class StoryController extends Controller
             'meta_description'  => $request->meta_description,
             'category_id'       => $request->category,
             'biliner'           => $request->biliner,
-            'slug'              => str_slug($request->title, "-"),
-            'cover'             => $request->cover
+            'slug'              => str_slug($request->title, "-").'-'.rand(100, 999),
+            'cover'             => $request->cover,
+            'status'            => $request->status
         ];
 
         $story = auth()->user()->story()->create($data);
@@ -79,7 +79,11 @@ class StoryController extends Controller
     public function edit($uuid)
     {
         $story = auth()->user()->story()->whereUuid($uuid)->with(['user', 'category'])->firstOrFail();
+        if($story->status != 'draft')
+            return redirect()->route('stories.show', $story->uuid );
+
         $categories = Category::all();
+
         return view('stories.edit', ['story' => $story, 'categories' => $categories ]);
     }
 
@@ -99,7 +103,7 @@ class StoryController extends Controller
             'meta_description'  => $request->meta_description,
             'category_id'       => $request->category,
             'biliner'           => $request->biliner,
-            'slug'              => str_slug($request->title, "-"),
+            'slug'              => str_slug($request->title, "-").'-'.rand(100, 999),
             'cover'             => $request->cover
         ];
 
