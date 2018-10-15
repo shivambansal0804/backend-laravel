@@ -11,7 +11,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a href="{{route('blog.index')}}" class="nav-link">Blog</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -20,11 +22,16 @@
 
                 @auth
                     @if (!auth()->user()->hasRole('photographer'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('stories.create') }}">Create Story</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('stories.index')}}" class="nav-link">Story</a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" v-pre>
+                                Stories <span class="caret"></span>
+                            </a>
+                        
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a href="{{ route('stories.index')}}" class="dropdown-item">All Stories</a>
+                                <a class="dropdown-item" href="{{ route('stories.create') }}">Create Story</a>
+                            </div>
                         </li>
                     @endif
 
@@ -50,25 +57,29 @@
                     @endif
 
                     @if (auth()->user()->hasRole('superuser'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('roles.index') }}">{{ __('Roles') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('permissions.index') }}">{{ __('Permissions') }}</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false" v-pre>
-                            Users <span class="caret"></span>
+                            Manage <span class="caret"></span>
                         </a>
                     
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('superuser.dashboard') }}" >
+                                {{ __('Dashboard') }}
+                            </a>
+                            <hr>
                             <a class="dropdown-item" href="{{ route('users.index') }}">
                                 {{ __('All users') }}
                             </a>
-
                             <a class="dropdown-item" href="{{ route('users.create') }}">
-                                {{ __('Create') }}
+                                {{ __('Create User') }}
+                            </a>
+                            <hr>
+                            <a class="dropdown-item" href="{{ route('permissions.index') }}">
+                                {{ __('Permissions') }}
+                            </a>
+                            <a class="dropdown-item" href="{{ route('roles.index') }}">
+                                {{ __('Roles') }}
                             </a>
                         </div>
                     </li>
@@ -86,13 +97,7 @@
                                 </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                        @if (auth()->user()->hasRole('superuser'))
-                        <a class="dropdown-item" href="{{ route('superuser.dashboard') }}" >
-                            {{ __('Dashboard') }}
-                        </a>
-                        @endif
-
+                        <a href="{{ route('dashboard')}}" class="dropdown-item">Dashboard</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

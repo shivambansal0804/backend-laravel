@@ -2,8 +2,6 @@
 
 @section('links')
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 @endsection
 
 @section('content')
@@ -74,8 +72,9 @@
                 </div>
                 <br>
                 <hr>
-                <div class="form-group">
-                    <input type="submit" class="form-control btn btn-primary" value="Create">
+                <div class="form-group row">
+                    <button type="submit" name="status" class="form-control btn btn-primary col-md-2" value="draft">Create</button>
+                    <button type="submit" name="status" class="form-control btn btn-success  col-md-4 ml-1" value="pending">Create and Submit for Approval</button>
                 </div>
             </form>
         </div>
