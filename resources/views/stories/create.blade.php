@@ -8,6 +8,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <form action="/url" method="POST"></form>
             <form action="{{ route('stories.store') }}" method="POST">
                 @csrf
 
@@ -73,7 +74,7 @@
                 <br>
                 <hr>
                 <div class="form-group row">
-                    <button type="submit" name="status" class="form-control btn btn-primary col-md-2" value="draft">Create</button>
+                    <button type="submit" name="status" class="form-control btn btn-primary col-md-3" value="draft">Save as draft</button>
                     <button type="submit" name="status" class="form-control btn btn-success  col-md-4 ml-1" value="pending">Create and Submit for Approval</button>
                 </div>
             </form>

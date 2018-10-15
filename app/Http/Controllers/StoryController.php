@@ -79,7 +79,11 @@ class StoryController extends Controller
     public function edit($uuid)
     {
         $story = auth()->user()->story()->whereUuid($uuid)->with(['user', 'category'])->firstOrFail();
+        if($story->status != 'draft')
+            return redirect()->route('stories.show', $story->uuid );
+
         $categories = Category::all();
+
         return view('stories.edit', ['story' => $story, 'categories' => $categories ]);
     }
 
