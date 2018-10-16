@@ -123,4 +123,9 @@ class StoryController extends Controller
         auth()->user()->story()->whereUuid($uuid)->firstOrFail()->delete();
         return redirect()->route('stories.index');
     }
+
+   /* public function publish($uuid)
+    {
+        return 1;
+    }*/
 }

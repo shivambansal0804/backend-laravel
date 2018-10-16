@@ -93,7 +93,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-    
+
+
     // Categories Routes 
 
         // Create Category
@@ -117,8 +118,19 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         // Delete Category
         Route::delete('/categories/{name}', 'CategoryController@destroy')->name('categories.destroy')->middleware('permission:delete-category');
         
+    Route::middleware('role:superuser|council')->group(function () {
+        Route::get('/stories/pending', 'User\CouncilController@index')->name('council.index');
+        Route::get('/stories/pending/{uuid}', 'User\CouncilController@show' )->name('council.show');
+        Route::put('/stories/pending/{uuid}/draft', 'User\CouncilController@draft')->name('council.draft');
+        // edit
+
+        // update
+        // publish 
+        Route::get('stories/pending/{uuid}/publish', 'User\CouncilController@publish')->name('council.publish');
+    });
+
     // Stories Routes
-    Route::group(['prefix' => 'stroies', 'middleware' => ['role:superuser|council|columnist|coordinator']], function() {
+    Route::group(['prefix' => 'stories', 'middleware' => ['role:superuser|council|columnist|coordinator']], function() {
         Route::get('/', 'StoryController@index')->name('stories.index');
         Route::get('/create', 'StoryController@create')->name('stories.create');
         Route::post('/', 'StoryController@store')->name('stories.store');
@@ -126,6 +138,8 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::get('/{uuid}/edit', 'StoryController@edit')->name('stories.edit');
         Route::put('/{uuid}', 'StoryController@update')->name('stories.update');
         Route::delete('/{uuid}', 'StoryController@destroy')->name('stories.destroy');
+
     });
+
 
 });
