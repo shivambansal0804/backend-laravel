@@ -1,5 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:300i,400|Open+Sans:300,300i,400,600,700,800');
+@import './css/bootstrap.css';
+@import './css/stack-interface.css';
+@import './css/socicon.css';
+@import './css/lightbox.min.css';
+@import './css/lightbox.min.css';
+@import './css/flickity.css';
+@import './css/iconsmind.css';
+@import './css/jquery.steps.css';
+@import './css/theme.css';
+@import './css/custom.css';
 
-// npm run dev
 
-@import('./css/bootstrap.css')
+a {
+    text-decoration: none !important;
+}
 
+.p {
+    &-1 {
+        padding-left: 1rem;
+
+        &-lg {
+           @media screen and (max-width: 320px) {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            }
+        }
+    }
+}
