@@ -1,60 +1,50 @@
 @extends('layouts.app') 
-
 @section('links')
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 @endsection
-
+ 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="/url" method="POST"></form>
-            <form action="{{ route('stories.store') }}" method="POST">
+            <form action="{{ route('council.update', $story->uuid) }}" method="POST">
                 @csrf
-
+                @method('PUT')
                 <div class="custom-input">
-                    <input type="text" class="custom-input__input custom-size-1" placeholder="Give this Story some title" autocomplete="off" name="title" required>
+                    <input type="text" value="{{ old('title') ? old('title'): $story->title }}" class="custom-input__input custom-size-1" placeholder="Give this Story some title" autocomplete="off"
+                        name="title" required>
                 </div>
-
+    
                 <hr class="mt-0">
-                
-            
+    
+    
                 <div class="form-group">
-                    <input type="text" class="custom-input__input " placeholder="Biliners sells the story, give this a biliner." autocomplete="off" name="biliner"
-                        required>
+                    <input type="text" value="{{ old('biliner') ? old('biliner'): $story->biliner }}" class="custom-input__input " placeholder="Biliners sells the story, give this a biliner." autocomplete="off"
+                        name="biliner" required>
                 </div>
-                
+    
                 <hr class="mb-0 mt-3">
                 <div class="custom-input">
-                    <textarea id="summernote" name="body"></textarea>
+                    <textarea id="summernote" name="body">{!! old('body') ? old('body'): $story->body !!}</textarea>
                 </div>
-
+    
                 <hr>
-
+    
                 <div class="custom-input">
                     <select name="category" class="form-control ">
-                        <option value="">Give this story a Category</option>
-                        @foreach ($categories as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
-                        @endforeach
-                    </select>
+                            <option value="{{ old('category') ? old('category'): $story->category->id }}">{{ $story->category->name }}</option>
+                            @foreach ($categories as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
                 </div>
-
-                <br>    
-
+    
+                <br>
+    
                 <h3>SEO</h3>
-
+    
                 <hr>
-
+    
                 <div class="row">
                     <div class="col-md-4 text-center pt-1">
                         <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
@@ -63,12 +53,12 @@
                         </div>
                     </div>
                     <div class="col">
-                        <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here"></textarea>
+                        <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here">{{ old('meta_description') ? old('meta_description'): $story->meta_description }}</textarea>
                     </div>
                 </div>
-
+    
                 <br>
-
+    
                 <div class="row">
                     <div class="col-md-4 text-center pt-1">
                         <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
@@ -77,26 +67,25 @@
                         </div>
                     </div>
                     <div class="col">
-                       <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here"></textarea>
+                        <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here">{{ old('meta_title') ? old('meta_title'): $story->meta_title }}</textarea>
                     </div>
                 </div>
                 <br>
                 <hr>
                 <div class="form-group row">
-                    <button type="submit" name="status" class="form-control btn btn-primary col-md-3" value="draft">Save as draft</button>
-                    <button type="submit" name="status" class="form-control btn btn-success  col-md-4 ml-1" value="pending">Create and Submit for Approval</button>
+                    <input type="submit" class="form-control btn btn-primary" value="Save">
                 </div>
             </form>
         </div>
     </div>
 </div>
 @endsection
-
+ 
 @section('scripts')
-    
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-    <script>
-        $(document).ready(function() {
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<script>
+     $(document).ready(function() {
             $('#summernote').summernote({
             height: 300,
             placeholder: 'Write Description here',
@@ -116,6 +105,5 @@
         }); 
         
         });
-    </script>
-
+</script>
 @endsection

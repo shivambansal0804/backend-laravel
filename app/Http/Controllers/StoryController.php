@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\{Category, Tag, Story};
+use App\Http\Requests\StoreStory;
 
 class StoryController extends Controller
 {
@@ -35,10 +36,10 @@ class StoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $gi
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStory $request)
     {
         $data = [
             'title'             => $request->title,
@@ -94,7 +95,7 @@ class StoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $uuid)
+    public function update(StoreStory $request, $uuid)
     {
         $data = [
             'title'             => $request->title,
