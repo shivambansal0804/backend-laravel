@@ -1,38 +1,56 @@
 @extends('layouts.app') 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            
-            <h2>{{ $story->title }}</h2>
-            @include('inc.session')
-            
-            created By <strong>{{$story->user->name}},</strong>  {{ $story->created_at->diffForHumans()}} 
-            in <a class="pt-1" href="{{ route('categories.show', $story->category->slug)}}">{{ $story->category->name }}</a>    
-            <span class="badge badge-primary">{{ $story->status }}</span>
-            
-            @if ($story->status == 'draft')
-                <hr>
-                <a href="{{ route('stories.edit', $story->uuid)}}">Edit</a>
-                <a href="{{ route('stories.submit', $story->uuid )}}" class="text-success">Submit for Approval</a> 
-                <form class="d-inline" action="{{route('stories.destroy', $story->uuid)}}" method="post">
-                    @csrf @method('DELETE')
-                    <input type="submit" value="Delete" class="btn btn-link text-danger p-0" style="margin-top: -5px;">
-                </form>               
-            @endif
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <article> 
+                    <div class="article__title">
+                        <h1 class="h2">{{ $story->title }}</h1>
+                        <span>{{ $story->created_at->diffForHumans()}}, </span>
+                        <span class="
+                                @if($story->status == 'draft') text-warning
+                                @elseif($story->status == 'published') text-success
+                                @else badge-dark @endif">
+                            {{ $story->status }}
+                        </span>
+                    </div>
 
-            
-            <hr> 
-            
-            <p>
-                {{ $story->biliner }}
-            </p>
-            <hr>
-            {!! $story->body !!}
-            
+                    <div class="article__body">
+                        <p class="small">
+                            <small>{{ $story->biliner }}</small>
+                        </p>
+                        <p>
+                            {!! $story->body !!}
+                        </p>
+                        @if ($story->status == 'draft')
+                        <div>
+                            <a class="btn btn--primary btn--sm" href="{{ route('stories.edit', $story->uuid)}}">
+                                                        <span class="btn__text">Edit</span>
+                                                    </a>
+                            <a class="btn btn--sm" href="{{ route('stories.submit', $story->uuid )}}">
+                                                        <span class="btn__text">Submit for Approval</span>
+                                                    </a>
+                            <a class="btn btn--sm" href="{{ route('stories.index' )}}" onclick="event.preventDefault();
+                                                            document.getElementById('delete-form').submit();">
+                                                        <span class="btn__text">Delete</span>
+                                                    </a>
+                            <form id="delete-form" action="{{route('stories.destroy', $story->uuid)}}" method="post">
+                                @csrf @method('DELETE')
+                            </form>
+                        </div>                            
+                        @endif
+                        
+                        <hr>
+                        <small>
+                            Posted in <a href="{{ route('categories.show', $story->category->slug)}}">{{ $story->category->name }}</a>
+                        </small>
+                    </div>
+                </article>
+            </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
 
 
