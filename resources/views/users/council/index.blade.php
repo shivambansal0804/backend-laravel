@@ -10,7 +10,7 @@
                 @foreach ($stories as $item)
                 <div class="row">
                     <div class="col-md-8">
-                        <h5 class="mb-0"><a class="t-black" href="{{route('council.show', $item->uuid)}}">{{$item->title}}</a> </h5>
+                        <h5 class="mb-0"><a class="t-black" href="{{route('council.stories.show', $item->uuid)}}">{{$item->title}}</a> </h5>
                         <span class="text-small">
                             {{ substr($item->biliner, 0, 90) }}
                         </span>

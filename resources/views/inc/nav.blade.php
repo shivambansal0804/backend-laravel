@@ -31,6 +31,9 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a href="{{ route('stories.index')}}" class="dropdown-item">All Stories</a>
                                 <a class="dropdown-item" href="{{ route('stories.create') }}">Create Story</a>
+                                @if (auth()->user()->can('publish-story'))
+                                    <a href="{{ route('council.stories.index')}}" class="dropdown-item">Pending Stories</a>
+                                @endif
                             </div>
                         </li>
                     @endif

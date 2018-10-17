@@ -124,8 +124,12 @@ class StoryController extends Controller
         return redirect()->route('stories.index');
     }
 
-   /* public function publish($uuid)
-    {
-        return 1;
-    }*/
+   public function submit($uuid)
+   {
+       $story = auth()->user()->story()->whereUuid($uuid)->firstOrFail()->update([
+           'status' => 'pending'
+       ]);
+
+       return redirect()->route('stories.index');
+   }
 }

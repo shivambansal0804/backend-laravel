@@ -96,7 +96,7 @@ class CouncilController extends Controller
         return redirect()->route('council.index');
     }
 
-     public function publish($uuid)
+    public function publish($uuid)
     {
       auth()->user()->story()->whereUuid($uuid)->firstOrFail()->update([
             'status' => 'published'
