@@ -121,10 +121,12 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
     Route::middleware('role:superuser|council')->group(function () {
         Route::get('/stories/pending', 'User\CouncilController@index')->name('council.index');
         Route::get('/stories/pending/{uuid}', 'User\CouncilController@show' )->name('council.show');
+        //save back to draft
         Route::put('/stories/pending/{uuid}/draft', 'User\CouncilController@draft')->name('council.draft');
-        // edit
+        Route::get('stories/pending/{uuid}/edit', 'User\CouncilController@edit')->name('council.edit');
 
         // update
+        Route::put('stories/pending/{uuid}', 'User\CouncilController@update')->name('council.update');
         // publish 
         Route::get('stories/pending/{uuid}/publish', 'User\CouncilController@publish')->name('council.publish');
     });

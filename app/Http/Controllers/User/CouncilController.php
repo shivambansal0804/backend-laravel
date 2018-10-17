@@ -4,7 +4,8 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Story;
+use App\{Story, Category};
+use App\Http\Requests\StoreStory;
 
 class CouncilController extends Controller
 {
@@ -36,7 +37,7 @@ class CouncilController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStory $request)
     {
         //
     }
@@ -60,9 +61,11 @@ class CouncilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $story = Story::whereUuid($uuid)->with(['user', 'category'])->firstOrFail();
+        $categories = Category::all();
+        return view('users.council.edit', ['story' => $story, 'categories' => $categories]);
     }
 
     /**
@@ -72,9 +75,10 @@ class CouncilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreStory $request, $uuid)
     {
-        //
+        Story::whereUuid($uuid)->firstOrFail()->update($request->all());
+        return redirect()->route('council.index');
     }
 
     /**
@@ -88,7 +92,7 @@ class CouncilController extends Controller
         //
     }
 
-    public function draft(Request $request, $uuid)
+    public function draft(StoreStory $request, $uuid)
     {
         $story = Story::where('Uuid', $uuid)->firstOrFail()->update([
             'status' => 'draft'
@@ -98,9 +102,12 @@ class CouncilController extends Controller
 
      public function publish($uuid)
     {
-      auth()->user()->story()->whereUuid($uuid)->firstOrFail()->update([
-            'status' => 'published'
-        ]);
-        return redirect()->route('council.index');
+      $story = Story::whereUuid($uuid)->firstOrFail();
+
+      $story->update([
+        'status' => 'published'
+      ]);
+
+      return redirect()->route('blog.show', $story->slug);
     }
 }

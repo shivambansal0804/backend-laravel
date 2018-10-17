@@ -69,7 +69,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $uuid)
     {
-        $user = auth()->user()->update($request->all());
+        return $request;
+        $data = [
+            'email' => $request->email,
+            "name" => $request->name,
+            "password" => bcrypt($request->password)
+        ];
+        
+        return $data;
+
+        $user = auth()->user()->update($data);
 
         auth()->user()->update([
             'activated' => true
