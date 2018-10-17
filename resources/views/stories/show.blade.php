@@ -14,7 +14,7 @@
             @if ($story->status == 'draft')
                 <hr>
                 <a href="{{ route('stories.edit', $story->uuid)}}">Edit</a>
-                <a href="" class="text-success">Submit for Approval</a> 
+                <a href="{{ route('stories.submit', $story->uuid )}}" class="text-success">Submit for Approval</a> 
                 <form class="d-inline" action="{{route('stories.destroy', $story->uuid)}}" method="post">
                     @csrf @method('DELETE')
                     <input type="submit" value="Delete" class="btn btn-link text-danger p-0" style="margin-top: -5px;">
