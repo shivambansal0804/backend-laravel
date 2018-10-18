@@ -70,7 +70,6 @@ class UserController extends Controller
      */
     public function update(UpdateUser $request, $uuid)
     {
-        return $request;
         $data = [
             'email' => $request->email,
             'name' => $request->name,
