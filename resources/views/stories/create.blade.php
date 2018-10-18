@@ -35,7 +35,7 @@
                 
                 <hr class="mb-0 mt-3">
                 <div class="custom-input">
-                    <textarea id="summernote" name="body"></textarea>
+                    <textarea id="summernote" name="body" required></textarea>
                 </div>
 
                 <hr>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here"></textarea>
+                        <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here" required></textarea>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="col">
-                       <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here"></textarea>
+                       <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here" required></textarea>
                     </div>
                 </div>
                 <br>

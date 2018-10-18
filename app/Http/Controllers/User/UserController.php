@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUser;
 
 class UserController extends Controller
 {
@@ -67,15 +68,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $uuid)
+    public function update(UpdateUser $request, $uuid)
     {
         return $request;
         $data = [
             'email' => $request->email,
-            "name" => $request->name,
-            "password" => bcrypt($request->password)
+            'name' => $request->name,
+            'password' => bcrypt($request->password),
+            'username' => $request->username,
+            'bio' => $request->bio,
+            'linkedin' => $request->linkedin,
+            'facebook' => $request->facebook,
+            'instagram' => $request->medium,
+            'display_mail' => $request->display_mail,
         ];
-        
+
         return $data;
 
         $user = auth()->user()->update($data);

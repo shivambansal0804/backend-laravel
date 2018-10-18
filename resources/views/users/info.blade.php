@@ -31,7 +31,7 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" >
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required>
                                 </div>
                             </div>
 
@@ -41,7 +41,7 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="username" type="text" class="form-control" name="username" value="{{ old('username') ? old('username') : $user->username }}">
+                                    <input id="username" type="text" class="form-control" name="username" value="{{ old('username') ? old('username') : $user->username }}" required>
                                 </div>
                             </div>
 
@@ -51,7 +51,7 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="bio" type="text" class="form-control" name="bio" value="{{ old('bio') ? old('bio') : $user->bio }}">
+                                    <input id="bio" type="text" class="form-control" name="bio" value="{{ old('bio') ? old('bio') : $user->bio }}" required>
                                 </div>
                             </div>
 
@@ -61,7 +61,7 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="linkedin" type="text" class="form-control" name="linkedin" value="{{ old('linkedin') ? old('linkedin') : $user->linkedin }}">
+                                    <input id="linkedin" type="text" class="form-control" name="linkedin" value="{{ old('linkedin') ? old('linkedin') : $user->linkedin }}" required>
                                 </div>
                             </div>
 
@@ -71,7 +71,7 @@
                                                             </label>
                             
                                 <div class="col-md-6">
-                                    <input id="facebook" type="text" class="form-control" name="facebook" value="{{ old('facebook') ? old('facebook') : $user->facebook }}">
+                                    <input id="facebook" type="text" class="form-control" name="facebook" value="{{ old('facebook') ? old('facebook') : $user->facebook }}" required>
                                 </div>
                             </div>
 
@@ -81,7 +81,7 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="instagram" type="text" class="form-control" name="instagram" value="{{ old('instagram') ? old('instagram') : $user->instagram }}">
+                                    <input id="instagram" type="text" class="form-control" name="instagram" value="{{ old('instagram') ? old('instagram') : $user->instagram }}" required>
                                 </div>
                             </div>
 
@@ -91,7 +91,7 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="medium" type="text" class="form-control" name="medium" value="{{ old('medium') ? old('medium') : $user->medium }}">
+                                    <input id="medium" type="text" class="form-control" name="medium" value="{{ old('medium') ? old('medium') : $user->medium }}" required>
                                 </div>
                             </div>
 
@@ -101,7 +101,7 @@
                                 </label>
                             
                                 <div class="col-md-6">
-                                    <input id="display_mail" type="email" class="form-control" name="display_mail" value="{{ old('display_mail') ? old('display_mail') : $user->display_mail }}">
+                                    <input id="display_mail" type="email" class="form-control" name="display_mail" value="{{ old('display_mail') ? old('display_mail') : $user->display_mail }}" required>
                                 </div>
                             </div>
 
