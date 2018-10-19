@@ -23,6 +23,8 @@
             @include('inc.sidebar')
         @endauth
         <div class="main-container p-1-lg">
+            @include('inc.session')
+            @include('inc.errors')
             @yield('content')
         </div>
     </div>

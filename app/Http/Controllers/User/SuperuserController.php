@@ -67,6 +67,8 @@ class SuperuserController extends Controller
 
         event( new UserHasRegistered($user, $password));
 
+        session()->flash('success', 'User Created!, and a mail has been sent to '.$user->name );
+
         return redirect()->route('users.index');
     }
 

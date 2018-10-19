@@ -1,7 +1,14 @@
 @if (Session::has('success'))
 
-<div class="content is-success" role="alert">
-    <span class="badge badge-success">{{ Session::get('success') }}</span>
+<div class="notification pos-right pos-top" data-animation="from-top" data-autoshow="200">
+    <div class="boxed boxed--border border--round box-shadow">
+        <div class="text-block">
+            <h5>Notification</h5>
+            <p>
+                {{ Session::get('success') }}
+            </p>
+        </div>
+    </div>
 </div>
 
 @endif

@@ -1,6 +1,5 @@
 @extends('layouts.app') 
 @section('content') 
-@include('inc.errors')
 <section class="cover">
     <div class="container">
         <div class="row justify-content-center">
