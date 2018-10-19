@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\{Story, Category};
 use App\Http\Requests\StoreStory;
+use App\Events\StoryPublished;
 
 class CouncilController extends Controller
 {
@@ -102,11 +103,13 @@ class CouncilController extends Controller
 
     public function publish($uuid)
     {
-      $story = Story::whereUuid($uuid)->firstOrFail();
+      $story = Story::whereUuid($uuid)->with('user')->firstOrFail();
 
       $story->update([
         'status' => 'published'
-      ]);
+      ]);      
+
+      event(new StoryPublished($story));
 
       return redirect()->route('blog.show', $story->slug);
     }

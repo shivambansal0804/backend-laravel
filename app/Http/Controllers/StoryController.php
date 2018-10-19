@@ -9,6 +9,7 @@ use Session;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Log;
+use App\Events\StorySubmittedForApproval;
 
 class StoryController extends Controller
 {
@@ -149,6 +150,8 @@ class StoryController extends Controller
        $story->update([
            'status' => 'pending'
        ]);
+
+       event(new StorySubmittedForApproval($story));
     
        session()->flash('success', $story->title.', Submitted for approval.');
        return redirect()->route('stories.index');
