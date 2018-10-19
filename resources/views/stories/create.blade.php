@@ -1,129 +1,113 @@
 @extends('layouts.app') 
-
 @section('links')
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css"
-    media="screen" charset="utf-8">
-<script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
- 
-{{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">   --}}
+<script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
 @endsection
-
+ 
 @section('content')
 
-<section id="" class="cover">
+<section id="" class="">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-8">
-                <form action="{{ route('stories.update', $story->uuid) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+                <span id="status"></span>
+                <form action="{{ route('stories.update', $story->uuid) }}" method="POST" class="row">
+                    @csrf @method('PUT')
 
-                    <input type="text" class="custom__input custom__input--text size--1" placeholder="New Story" autocomplete="off" name="title"
-                        value="{{ old('title') ? old('title'): $story->title }}" required>
-                    <textarea type="text" id="biliner" class="custom__input custom__input--resize-n" rows="2" placeholder="Biliners sells the story, give this a biliner." autocomplete="off"
-                        name="biliner" required>{{ old('biliner') ? old('biliner'): $story->biliner }}</textarea>
-
-                    <hr>
-                    <textarea class="editable border-n" name="body">{!! old('body') ? old('body'): $story->body !!}</textarea>
-
-
-                    <hr>
-                    <div class="custom-input">
-                        {{-- <textarea id="summernote"  required></textarea> --}}
+                    <div class="col-md-12">
+                        <input type="text" class="custom__input custom__input--text size--1" placeholder="New Story" autocomplete="off" name="title"
+                            value="{{ old('title') ? old('title'): $story->title }}" required>
                     </div>
 
-                    <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10">
+                    <div class="col-md-12">
+                        <textarea type="text" id="biliner" class="custom__input custom__input--resize-n" rows="2" placeholder="Biliners sells the story, give this a biliner."
+                            autocomplete="off" name="biliner" required>{{ old('biliner') ? old('biliner'): $story->biliner }}</textarea>
+                    </div>
+
+                    <div class="col-md-12">
+                        <textarea class="body border-n" id="body" name="body">{!! old('body') ? old('body'): $story->body !!}</textarea>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <h3>SEO Details</h3>
+                    </div>
+                    <div class="col-md-12">
+                        <select name="category" class="">
+                            <option value="">Give this story a Category</option>
+                            @if ($story->category)
+                                <option value="{{ $story->category->name }}">{{$story->category->display_name}}</option>
+                            @endif
+                                
+                            @foreach ($categories as $item)
+                                <option value="{{$item->id}}">{{$item->display_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here" required>{{ old('meta_description') ? old('meta_description'): $story->meta_description }}</textarea>
+                    </div>
                     
-                    
-                            <hr class="mb-0 mt-3">
-                            
-                    
-                            <hr>
-                    
-                            <div class="custom-input">
-                                <select name="category" class="form-control ">
-                                                            <option value="">Give this story a Category</option>
-                                                            @foreach ($categories as $item)
-                                                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                            </div>
-                    
-                            <br>
-                    
-                            <h3>SEO</h3>
-                    
-                            <hr>
-                    
-                            <div class="row">
-                                <div class="col-md-4 text-center pt-1">
-                                    <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
-                                    <div class="mt-1">
-                                        <strong>Meta Description</strong>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here" required></textarea>
-                                </div>
-                            </div>
-                    
-                            <br>
-                    
-                            <div class="row">
-                                <div class="col-md-4 text-center pt-1">
-                                    <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
-                                    <div class="mt-1">
-                                        <strong>Meta Title</strong>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here" required></textarea>
-                                </div>
-                            </div>
-                            <br>
-                            <hr>
-                            <div class="form-group row">
-                                <button type="submit" name="status" class="form-control btn btn-primary col-md-3" value="draft">Save as draft</button>
-                                <button type="submit" name="status" class="form-control btn btn-success  col-md-4 ml-1" value="pending">Create and Submit for Approval</button>
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                        <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here" required>{{ old('meta_title') ? old('meta_title'): $story->meta_title }}</textarea>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-6 col-md-4">
+                        <button class="btn btn--primary btn--icon d-inline" type="submit" name="status" value="draft">
+                            <span class="btn__text"><i class="icon-Add-File"></i>Save as Draft</span>
+                        </button>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-6 col-md-4">  
+                        <button class="btn btn-success text-white btn--icon d-inline" type="submit" name="status" value="pending">
+                            <span class="btn__text"><i class="icon-Add-File"></i>Submit for approval</span>
+                        </button>
                     </div>
                 </form>
-                
+
             </div>
         </div>
         <!--end of row-->
     </div>
     <!--end of container-->
-    
+
 </section>
-
-
 @endsection
-
+ 
 @section('scripts')
-    
-    <script>
-        $(document).ready(function() {
-            // $('#summernote').summernote({
-            //     height: 300,
-            //     placeholder: 'Write Description here',
-            //     toolbar: [ 
-            //         // [groupName, [list of button]]
-            //         ['style', ['bold', 'italic', 'underline', 'clear']], 
-            //         ['font', ['strikethrough', 'fontname']], 
-            //         ['fontsize', ['fontsize']], ['color', ['color']], 
-            //         ['para', ['ul', 'ol', 'paragraph']], 
-            //         ['height',['height']],
-            //         ['link', ['link']]
-            //     ],
-            //     popover: {
-            //         // link: [ ['link', ['linkDialogShow', 'unlink']] ],
-            //     },
+
+<script>
+    $(document).ready(function() {
+        var editor = ClassicEditor
+				.create(document.querySelector( '#body' ), {
+                    removePlugins: [ 
+                        'Image', 'EasyImage', 'ImageCaption', 'ImageCaption', 'TableToolbar', 'Table',
+                        'MediaEmbed', 'ImageUpload', 'CKFinderUploadAdapter'
+                    ],
+                    toolbar: {
+                        items: [
+                            'heading',
+                            '|',
+                            'alignment',
+                            'bold',
+                            'italic',
+                            'link',
+                            'bulletedList',
+                            'numberedList',
+                            'imageUpload',
+                            'blockQuote',
+                            'undo',
+                            'redo'
+                        ]
+                    }
+                    
+                } )
+				.then( editor => {
+					console.log( editor );
+				} )
+				.catch( error => {
+					console.error( 'error' );
+                } );
                 
-            // }); 
-        var editor = new MediumEditor('.editable');
            
         function wordCount(ele)
         {
@@ -131,6 +115,43 @@
             var string = ele.trim().replace(regex, ' ').replace(/&nbsp;/g, ' ').replace(/  +/g, ' ');
             var num = string.trim().split(' ').length;
             return num;
+        }
+
+        
+        setInterval(() => {
+            changeStatus('Saving....')
+            autoSave();
+        }, 50000);
+
+        function changeStatus(text) {
+            var elem = $('#status');
+            elem.text(text);
+            setTimeout(() => {
+                elem.text('');
+            }, 2000);
+        }
+
+        function autoSave() {
+            const URL = '{{ route('stories.autosave', $story->uuid )}}'
+             var save = $.ajax(URL, {
+                method: 'PUT',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'title': $('input[name="title"]').val(),
+                    'body': $('textarea[name="body"]').val(),
+                    'biliner': $('textarea[name="biliner"]').val(),
+                    'meta_title': $('textarea[name="meta_title"]').val(),
+                    'meta_description': $('textarea[name="meta_description"]').val(),
+                },
+                success : function(data) {
+                    if ((data.error)) {
+                        console.log(data.error)
+                    }
+                    else{
+                        changeStatus('Saved')
+                    }
+                }
+            })
         }
 
         var wordsInLine = 17;
@@ -146,6 +167,5 @@
         })
         
         });
-    </script>
-
+</script>
 @endsection

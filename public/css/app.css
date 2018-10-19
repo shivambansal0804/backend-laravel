@@ -16369,3 +16369,13 @@ footer.footer-7 {
   }
 }
 
+.custom__notification {
+  min-width: 250px;
+}
+
+@media (min-width: 780px) {
+  .custom__notification {
+    min-width: 30rem;
+  }
+}
+

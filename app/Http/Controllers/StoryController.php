@@ -48,25 +48,19 @@ class StoryController extends Controller
      * @param  \Illuminate\Http\Request  $gi
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStory $request)
+    public function autoSave(Request $request)
     {
         $data = [
             'title'             => $request->title,
             'body'              => $request->body,
             'meta_title'        => $request->meta_title,
             'meta_description'  => $request->meta_description,
-            'category_id'       => $request->category,
             'biliner'           => $request->biliner,
-            'slug'              => str_slug($request->title, "-").'-'.rand(100, 9999),
-            'cover'             => $request->cover,
-            'status'            => $request->status
         ];
 
-        $story = auth()->user()->story()->create($data);
+        $story = auth()->user()->story()->update($data);
 
-        $request->session()->flash('success', $data['title'].', Created!');
-
-        return redirect()->route('stories.show', $story->uuid);
+        return response()->json('saved');
     }
 
     /**
@@ -111,7 +105,6 @@ class StoryController extends Controller
      */
     public function update(StoreStory $request, $uuid)
     {
-        return $request;
         $data = [
             'title'             => $request->title,
             'body'              => $request->body,
@@ -120,7 +113,8 @@ class StoryController extends Controller
             'category_id'       => $request->category,
             'biliner'           => $request->biliner,
             'slug'              => str_slug($request->title, "-").'-'.rand(100, 999),
-            'cover'             => $request->cover
+            'cover'             => $request->cover,
+            'status'            => $request->status
         ];
 
         auth()->user()->story()->where('uuid' , $uuid)->first()->update($data);

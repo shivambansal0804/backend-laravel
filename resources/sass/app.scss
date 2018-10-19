@@ -70,3 +70,10 @@ a {
     }
     
 }
+
+.custom__notification {
+    min-width: 250px;
+    @media (min-width: 780px) {
+        min-width: 30rem;
+    }
+}

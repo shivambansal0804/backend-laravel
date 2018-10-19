@@ -42,9 +42,11 @@
                         @endif
                         
                         <hr>
-                        <small>
-                            Posted in <a href="{{ route('categories.show', $story->category->slug)}}">{{ $story->category->name }}</a>
-                        </small>
+                        @if ($story->category)
+                            <small>
+                                Posted in <a href="{{ route('categories.show', $story->category->slug)}}">{{ $story->category->name }}</a>
+                            </small>
+                        @endif
                     </div>
                 </article>
             </div>

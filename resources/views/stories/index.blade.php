@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 @if ($stories->count())
     <section class="text-center">
         <div class="container">
