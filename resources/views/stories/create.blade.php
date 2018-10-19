@@ -14,19 +14,22 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-8">
-                <form action="{{ route('stories.store') }}" method="POST">
+                <form action="{{ route('stories.update', $story->uuid) }}" method="POST">
                     @csrf
+                    @method('PUT')
 
                     <input type="text" class="custom__input custom__input--text size--1" placeholder="New Story" autocomplete="off" name="title"
-                        required>
+                        value="{{ old('title') ? old('title'): $story->title }}" required>
                     <textarea type="text" id="biliner" class="custom__input custom__input--resize-n" rows="2" placeholder="Biliners sells the story, give this a biliner." autocomplete="off"
-                        name="biliner" required></textarea>
+                        name="biliner" required>{{ old('biliner') ? old('biliner'): $story->biliner }}</textarea>
 
                     <hr>
-                    <div class="editable border-n" name="body"></div>
+                    <textarea class="editable border-n" name="body">{!! old('body') ? old('body'): $story->body !!}</textarea>
 
+
+                    <hr>
                     <div class="custom-input">
-                        <textarea id="summernote"  required></textarea>
+                        {{-- <textarea id="summernote"  required></textarea> --}}
                     </div>
 
                     <div class="row justify-content-center">

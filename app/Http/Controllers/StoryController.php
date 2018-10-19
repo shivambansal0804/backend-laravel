@@ -32,9 +32,13 @@ class StoryController extends Controller
      */
     public function create()
     {
+        $title = 'New Story';
+
         $story = auth()->user()->story()->create([
-            'slug' => Uuid::uuid4()->toString()
+            'title' => $title,
+            'slug' => str_slug($title, "-").'-'.rand(10, 9999)
         ]);
+
         return redirect()->route('stories.edit', $story->uuid );
     }
 
@@ -95,7 +99,7 @@ class StoryController extends Controller
 
         $categories = Category::all();
 
-        return view('stories.edit', ['story' => $story, 'categories' => $categories ]);
+        return view('stories.create', ['story' => $story, 'categories' => $categories ]);
     }
 
     /**
@@ -107,6 +111,7 @@ class StoryController extends Controller
      */
     public function update(StoreStory $request, $uuid)
     {
+        return $request;
         $data = [
             'title'             => $request->title,
             'body'              => $request->body,

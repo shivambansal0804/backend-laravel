@@ -25,11 +25,11 @@ class StoreStory extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'category' => 'required',
+            // 'category' => 'required',
             'biliner' => 'required',
             'body' => 'required',
-            'meta_description' => 'required',
-            'meta_title' => 'required'
+            // 'meta_description' => 'required',
+            // 'meta_title' => 'required'
         ];
     }
 }
