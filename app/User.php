@@ -6,12 +6,16 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;    
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\Models\Media;
 use App\Traits\Uuids;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use Uuids;
     use Notifiable;
+    use HasMediaTrait;
     use LaratrustUserTrait; 
 
     /**
@@ -27,7 +31,15 @@ class User extends Authenticatable
         'facebook', 'instagram',
         'display_mail',
         'medium', 'password',
+        'avatar'
     ];
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(400)
+            ->height(400);
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -45,4 +57,5 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Story');
     }
+
 }

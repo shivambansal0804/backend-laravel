@@ -94,7 +94,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
-
+    Route::get('/me', 'User\UserController@show')->name('me.show');
     // Categories Routes 
 
         // Create Category

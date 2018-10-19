@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->uuid('uuid')->unique();
             $table->string('email')->unique();
             $table->string('username')->nullable();
-            $table->string('avatar')->nullable();
             $table->boolean('activated')->default(false);
             $table->text('bio')->nullable();
             $table->date('data_of_birth')->nullable();

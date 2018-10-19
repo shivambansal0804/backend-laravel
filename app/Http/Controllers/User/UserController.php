@@ -45,9 +45,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return view('users.auth.show');
     }
 
     /**
@@ -71,24 +71,25 @@ class UserController extends Controller
     public function update(UpdateUser $request, $uuid)
     {
         $data = [
-            'email' => $request->email,
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'username' => $request->username,
             'bio' => $request->bio,
             'linkedin' => $request->linkedin,
             'facebook' => $request->facebook,
-            'instagram' => $request->medium,
+            'instagram' => $request->instagram,
+            'medium' => $request->medium,
             'display_mail' => $request->display_mail,
-        ];
-
-        return $data;
-
-        $user = auth()->user()->update($data);
-
-        auth()->user()->update([
             'activated' => true
-        ]);
+        ];
+        
+        $user = auth()->user();
+
+        $updated = $user->update($data);
+
+        if (isset($request['avatar'])) {
+            $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+        }
 
         return redirect()->route('dashboard');
     }
@@ -107,6 +108,6 @@ class UserController extends Controller
     public function info()
     {
         $user = auth()->user();
-        return view('users.info', ['user' => $user]);
+        return view('users.auth.info', ['user' => $user]);
     }
 }

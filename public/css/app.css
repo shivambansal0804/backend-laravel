@@ -16328,3 +16328,7 @@ footer.footer-7 {
   }
 }
 
+.round {
+  border-radius: 50%;
+}
+

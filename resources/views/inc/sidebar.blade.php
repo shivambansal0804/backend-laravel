@@ -9,7 +9,7 @@
         </div>
         <div class="text-block">
             <h4>
-                {{ auth()->user()->name }}
+                <a href="{{ route('me.show') }}">{{ auth()->user()->name }}</a>
             </h4>
             <span>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
