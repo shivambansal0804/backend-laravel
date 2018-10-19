@@ -8,6 +8,7 @@ use App\Http\Requests\StoreUser;
 use App\User;
 use App\Role;
 use App\Permission;
+use App\Events\UserHasRegistered;
 
 class SuperuserController extends Controller
 {
@@ -50,10 +51,12 @@ class SuperuserController extends Controller
      */
     public function storeUser(StoreUser $request)
     {
+        $password = rand();
+
         $data = [
             'name'      => $request->name,
             'email'     => $request->email,
-            'password'  => bcrypt($request->password)
+            'password'  => bcrypt($password)
         ];
 
         $role = Role::where('name', $request->role)->firstOrFail();
@@ -61,6 +64,9 @@ class SuperuserController extends Controller
         $user = User::create($data);
 
         if($user) $user->attachRole($role); 
+
+        event( new UserHasRegistered($user, $password));
+
         return redirect()->route('users.index');
     }
 
