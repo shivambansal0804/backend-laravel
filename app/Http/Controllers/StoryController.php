@@ -8,6 +8,7 @@ use App\Http\Requests\StoreStory;
 use Session;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
+use Log;
 
 class StoryController extends Controller
 {
@@ -57,7 +58,7 @@ class StoryController extends Controller
             'meta_description'  => $request->meta_description,
             'biliner'           => $request->biliner,
         ];
-
+        Log::info($data);
         $story = auth()->user()->story()->update($data);
 
         return response()->json('saved');

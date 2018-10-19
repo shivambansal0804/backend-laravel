@@ -77,7 +77,8 @@
 
 <script>
     $(document).ready(function() {
-        var editor = ClassicEditor
+        var editor;
+        ClassicEditor
 				.create(document.querySelector( '#body' ), {
                     removePlugins: [ 
                         'Image', 'EasyImage', 'ImageCaption', 'ImageCaption', 'TableToolbar', 'Table',
@@ -101,8 +102,8 @@
                     }
                     
                 } )
-				.then( editor => {
-					console.log( editor );
+				.then( e => {
+                    editor = e;
 				} )
 				.catch( error => {
 					console.error( 'error' );
@@ -120,6 +121,7 @@
         
         setInterval(() => {
             changeStatus('Saving....')
+            
             autoSave();
         }, 50000);
 
@@ -128,7 +130,7 @@
             elem.text(text);
             setTimeout(() => {
                 elem.text('');
-            }, 2000);
+            }, 5000);
         }
 
         function autoSave() {
@@ -138,7 +140,7 @@
                 data: {
                     '_token': $('input[name=_token]').val(),
                     'title': $('input[name="title"]').val(),
-                    'body': $('textarea[name="body"]').val(),
+                    'body': editor.getData(),
                     'biliner': $('textarea[name="biliner"]').val(),
                     'meta_title': $('textarea[name="meta_title"]').val(),
                     'meta_description': $('textarea[name="meta_description"]').val(),
