@@ -31,3 +31,42 @@ a {
 .round {
     border-radius: 50%;
 }
+
+.custom__input {
+    border: none !important;
+    outline: none;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    &--text {
+        
+    }
+
+    &--resize-n {
+        resize: none;
+        overflow: hidden;
+
+        &::-webkit-input-placeholder {
+            color: #252522 !important;
+        }
+    }
+}
+
+.border-n {
+    border: none !important;
+    outline: none !important;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.size--1 {
+    font-size: 2rem;
+    font-weight: 300;
+    @media (min-width: 780px) {
+        font-size: 3.2rem !important;   
+    }
+    
+}

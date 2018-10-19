@@ -1,119 +1,146 @@
 @extends('layouts.app') 
 
 @section('links')
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css"
+    media="screen" charset="utf-8">
+<script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+ 
+{{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">   --}}
 @endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="/url" method="POST"></form>
-            <form action="{{ route('stories.store') }}" method="POST">
-                @csrf
 
-                <div class="custom-input">
-                    <input type="text" class="custom-input__input custom-size-1" placeholder="Give this Story some title" autocomplete="off" name="title" required>
-                </div>
+<section id="" class="cover">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-8">
+                <form action="{{ route('stories.store') }}" method="POST">
+                    @csrf
 
-                <hr class="mt-0">
-                
-            
-                <div class="form-group">
-                    <input type="text" class="custom-input__input " placeholder="Biliners sells the story, give this a biliner." autocomplete="off" name="biliner"
+                    <input type="text" class="custom__input custom__input--text size--1" placeholder="New Story" autocomplete="off" name="title"
                         required>
-                </div>
+                    <textarea type="text" id="biliner" class="custom__input custom__input--resize-n" rows="2" placeholder="Biliners sells the story, give this a biliner." autocomplete="off"
+                        name="biliner" required></textarea>
+
+                    <hr>
+                    <div class="editable border-n" name="body"></div>
+
+                    <div class="custom-input">
+                        <textarea id="summernote"  required></textarea>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 col-lg-10">
+                    
+                    
+                            <hr class="mb-0 mt-3">
+                            
+                    
+                            <hr>
+                    
+                            <div class="custom-input">
+                                <select name="category" class="form-control ">
+                                                            <option value="">Give this story a Category</option>
+                                                            @foreach ($categories as $item)
+                                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                            </div>
+                    
+                            <br>
+                    
+                            <h3>SEO</h3>
+                    
+                            <hr>
+                    
+                            <div class="row">
+                                <div class="col-md-4 text-center pt-1">
+                                    <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
+                                    <div class="mt-1">
+                                        <strong>Meta Description</strong>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here" required></textarea>
+                                </div>
+                            </div>
+                    
+                            <br>
+                    
+                            <div class="row">
+                                <div class="col-md-4 text-center pt-1">
+                                    <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
+                                    <div class="mt-1">
+                                        <strong>Meta Title</strong>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here" required></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-group row">
+                                <button type="submit" name="status" class="form-control btn btn-primary col-md-3" value="draft">Save as draft</button>
+                                <button type="submit" name="status" class="form-control btn btn-success  col-md-4 ml-1" value="pending">Create and Submit for Approval</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 
-                <hr class="mb-0 mt-3">
-                <div class="custom-input">
-                    <textarea id="summernote" name="body" required></textarea>
-                </div>
-
-                <hr>
-
-                <div class="custom-input">
-                    <select name="category" class="form-control ">
-                        <option value="">Give this story a Category</option>
-                        @foreach ($categories as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <br>    
-
-                <h3>SEO</h3>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-4 text-center pt-1">
-                        <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
-                        <div class="mt-1">
-                            <strong>Meta Description</strong>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <textarea name="meta_description" id="" cols="30" rows="3" class="form-control" placeholder="Meta Description here" required></textarea>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="row">
-                    <div class="col-md-4 text-center pt-1">
-                        <img src="{{ asset('svg/computer.svg')}}" alt="" srcset="" width="50">
-                        <div class="mt-1">
-                            <strong>Meta Title</strong>
-                        </div>
-                    </div>
-                    <div class="col">
-                       <textarea name="meta_title" id="" cols="30" rows="3" class="form-control" placeholder="Meta Title here" required></textarea>
-                    </div>
-                </div>
-                <br>
-                <hr>
-                <div class="form-group row">
-                    <button type="submit" name="status" class="form-control btn btn-primary col-md-3" value="draft">Save as draft</button>
-                    <button type="submit" name="status" class="form-control btn btn-success  col-md-4 ml-1" value="pending">Create and Submit for Approval</button>
-                </div>
-            </form>
+            </div>
         </div>
+        <!--end of row-->
     </div>
-</div>
+    <!--end of container-->
+    
+</section>
+
+
 @endsection
 
 @section('scripts')
     
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
     <script>
         $(document).ready(function() {
-            $('#summernote').summernote({
-            height: 300,
-            placeholder: 'Write Description here',
-            toolbar: [ 
-                // [groupName, [list of button]]
-                ['style', ['bold', 'italic', 'underline', 'clear']], 
-                ['font', ['strikethrough', 'fontname']], 
-                ['fontsize', ['fontsize']], ['color', ['color']], 
-                ['para', ['ul', 'ol', 'paragraph']], 
-                ['height',['height']],
-                ['link', ['link']]
-            ],
-            popover: {
-                // link: [ ['link', ['linkDialogShow', 'unlink']] ],
-            },
-            
-        }); 
+            // $('#summernote').summernote({
+            //     height: 300,
+            //     placeholder: 'Write Description here',
+            //     toolbar: [ 
+            //         // [groupName, [list of button]]
+            //         ['style', ['bold', 'italic', 'underline', 'clear']], 
+            //         ['font', ['strikethrough', 'fontname']], 
+            //         ['fontsize', ['fontsize']], ['color', ['color']], 
+            //         ['para', ['ul', 'ol', 'paragraph']], 
+            //         ['height',['height']],
+            //         ['link', ['link']]
+            //     ],
+            //     popover: {
+            //         // link: [ ['link', ['linkDialogShow', 'unlink']] ],
+            //     },
+                
+            // }); 
+        var editor = new MediumEditor('.editable');
+           
+        function wordCount(ele)
+        {
+            var regex = /(<([^>]+)>)/ig;
+            var string = ele.trim().replace(regex, ' ').replace(/&nbsp;/g, ' ').replace(/  +/g, ' ');
+            var num = string.trim().split(' ').length;
+            return num;
+        }
+
+        var wordsInLine = 17;
+
+        var bilinerRow = 2;
+
+        var biliner = $('#biliner');
+        biliner.keyup(function () {
+            var count = wordCount($('#biliner').val());
+            var row = count / wordsInLine;
+            $(this).attr('rows', row + 1);
+            bilinerRow = row            
+        })
         
         });
     </script>

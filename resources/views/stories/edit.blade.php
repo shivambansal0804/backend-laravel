@@ -32,7 +32,7 @@
     
                 <div class="custom-input">
                     <select name="category" class="form-control ">
-                            <option value="{{ old('category') ? old('category'): $story->category->id }}">{{ $story->category->name }}</option>
+                            {{-- <option value="{{ old('category') ? old('category'): '' }}">Seld</option> --}}
                             @foreach ($categories as $item)
                                 <option value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach

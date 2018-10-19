@@ -17,7 +17,7 @@ class CreateStoriesTable extends Migration
             $table->increments('id');
             $table->uuid('uuid')->unique();
             $table->integer('user_id')->unsigned();
-            $table->text('title')->nullable();
+            $table->text('title')->nullable()->default('New Story');
             $table->text('biliner')->nullable();
             $table->string('slug')->unique();
             $table->longText('body')->nullable();

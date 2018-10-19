@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\{Category, Tag, Story};
 use App\Http\Requests\StoreStory;
 use Session;
+use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 
 class StoryController extends Controller
 {
@@ -30,8 +32,10 @@ class StoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('stories.create', ['categories' => $categories]);
+        $story = auth()->user()->story()->create([
+            'slug' => Uuid::uuid4()->toString()
+        ]);
+        return redirect()->route('stories.edit', $story->uuid );
     }
 
     /**

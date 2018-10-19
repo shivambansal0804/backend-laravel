@@ -25,7 +25,6 @@
     </div>
     <!--end of container-->
 </section>
-@include('inc.errors')
 <section id="update-section" class="cover text-center bg--secondary">
     <div class="container">
         <div class="row justify-content-center">

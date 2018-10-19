@@ -16332,3 +16332,40 @@ footer.footer-7 {
   border-radius: 50%;
 }
 
+.custom__input {
+  border: none !important;
+  outline: none;
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.custom__input--resize-n {
+  resize: none;
+  overflow: hidden;
+}
+
+.custom__input--resize-n::-webkit-input-placeholder {
+  color: #252522 !important;
+}
+
+.border-n {
+  border: none !important;
+  outline: none !important;
+}
+
+.border-n:focus {
+  outline: none;
+}
+
+.size--1 {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+@media (min-width: 780px) {
+  .size--1 {
+    font-size: 3.2rem !important;
+  }
+}
+
