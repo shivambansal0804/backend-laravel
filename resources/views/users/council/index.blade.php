@@ -40,7 +40,7 @@
                                     Created <strong>{{ $item->created_at->diffForHumans() }}</strong>
                                 </small>
                             <div class="text-right d-block">
-                                <a class="btn btn--sm type--uppercase" href="{{route('stories.show', $item->uuid)}}">
+                                <a class="btn btn--sm type--uppercase" href="{{route('council.stories.show', $item->uuid)}}">
                                         <span class="btn__text">
                                             Read Story
                                         </span>
@@ -107,7 +107,7 @@
     <div class="container">
         <div class="text-center">
             <img width="150" src="{{ asset('svg/pencil.svg') }}" alt="" srcset="">
-            <h3>Nothing here, Create new <a href="{{ route('stories.create') }}">Story.</a></h3>
+            <h3>Nothing here,</h3>
         </div>
     </div>
 </section>
