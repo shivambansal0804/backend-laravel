@@ -20,6 +20,14 @@ class Album extends Model implements HasMedia
         $this->addMediaConversion('cover')
             ->width(1000)
             ->height(1250);
+
+        $this->addMediaConversion('fullscreen')
+            ->width(1900)
+            ->height(800);
+
+        $this->addMediaConversion('thumb')
+        ->width(800)
+        ->height(800);
     }
 
     public function user()

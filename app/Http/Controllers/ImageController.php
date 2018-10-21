@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreImage;
 
 class ImageController extends Controller
 {
@@ -12,9 +13,11 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($uuid)
     {
-        //
+        $images = auth()->user()->album()->whereUuid($uuid)->firstOrFail()->image()->get();
+
+        return $images;
     }
 
     /**
@@ -22,9 +25,9 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($uuid)
     {
-        //
+        return view('images.create',  [ 'album_uuid' => $uuid ]);
     }
 
     /**
@@ -33,9 +36,17 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreImage $request, $uuid)
     {
-        //
+        $image = auth()->user()->album()->whereUuid($uuid)->firstOrFail()->image()->create([
+            'user_id' => auth()->user()->id
+        ]);
+
+        if($request->hasFile('image')) {
+            $image->addMediaFromRequest('image')->toMediaCollection('images');
+        }
+
+        return redirect()->route('images.show', [$uuid, $image->uuid]);
     }
 
     /**
@@ -44,9 +55,10 @@ class ImageController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function show(Image $image)
+    public function show($uuid /** Album Uuid */, $image /** Image Uuid */)
     {
-        //
+        $item = auth()->user()->album()->whereUuid($uuid)->firstOrFail()->image()->whereUuid($image)->firstOrFail();
+        return view('images.show', ['image' => $item]);
     }
 
     /**

@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
         'checkActivatedUser' => \App\Http\Middleware\CheckActivatedUser::class,
+        'CheckAlbum' => \App\Http\Middleware\CheckAlbum::class,
     ];
 }

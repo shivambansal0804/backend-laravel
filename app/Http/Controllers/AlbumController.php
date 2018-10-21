@@ -55,7 +55,12 @@ class AlbumController extends Controller
      */
     public function show($uuid)
     {
-        $album = auth()->user()->album()->whereUuid($uuid)->first();
+        $images = [];
+
+        $album = auth()->user()->album()->whereUuid($uuid)->with('image', 'user')->first();
+
+        $subs = $album->child()->get();
+
         return view('albums.show', ['album' => $album]);
     }
 

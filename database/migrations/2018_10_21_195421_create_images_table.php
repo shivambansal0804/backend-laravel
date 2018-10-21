@@ -17,6 +17,8 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('album_id')->unsigned();
+            $table->text('name')->nullable();
+            $table->text('biliner')->nullable();
             $table->uuid('uuid')->unique();
             $table->timestamps();
         });
