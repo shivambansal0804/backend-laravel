@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('dtutimes:daily-report')->dailyAt('23:55');
+        $schedule->command('dtutimes:weekly-report')->mondays();
     }
 
     /**
