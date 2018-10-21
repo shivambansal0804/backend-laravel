@@ -56,7 +56,41 @@
                                         <a href="{{ route('council.stories.index')}}" >
                                             Pending 
                                         </a>
-                                    </li> @endif
+                                    </li> 
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                @endif
+
+                @if (!auth()->user()->hasRole('columnist'))
+                    <li class="dropdown">
+                        <span class="dropdown__trigger">
+                            Album
+                        </span>
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <ul class="menu-vertical">
+                                    <li>
+                                        <a href="{{ route('albums.index')}}">
+                                            All
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('albums.create') }}">
+                                            Create 
+                                        </a>
+                                    </li>
+
+                                    {{-- Publish Story --}}
+                                    {{-- @if (auth()->user()->can('publish-story'))
+                                    <li>
+                                        <a href="{{ route('council.stories.index')}}" >
+                                            Pending 
+                                        </a>
+                                    </li> 
+                                    @endif --}}
                                 </ul>
                             </div>
                         </div>

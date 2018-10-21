@@ -16321,12 +16321,12 @@ footer.footer-7 {
   padding-left: 1rem;
 }
 
-@media screen and (max-width: 320px) {
+/* @media screen and (max-width: 300px) {
   .p-1-lg {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-}
+} */
 
 .round {
   border-radius: 50%;

@@ -15,6 +15,7 @@ Route::get('/', 'PageController@welcome')->name('welcome');
 Route::get('/about', 'PageController@about')->name('about');
 Route::get('/contact', 'PageController@contact')->name('contact');
 Route::get('/team', 'PageController@team')->name('team');
+Route::get('/test', 'PageController@test');
 
 // Login
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -141,6 +142,19 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::put('/{uuid}', 'StoryController@update')->name('stories.update');
         Route::put('/{uuid}/autosave', 'StoryController@autoSave')->name('stories.autosave');
         Route::delete('/{uuid}', 'StoryController@destroy')->name('stories.destroy');
+
+    });
+
+    // Album Routes
+    Route::group(['prefix' => 'albums', 'middleware' => ['role:superuser|council|photographer|coordinator']], function() {
+        Route::get('/', 'AlbumController@index')->name('albums.index');
+        Route::get('/create', 'AlbumController@create')->name('albums.create');
+        Route::post('/', 'AlbumController@store')->name('albums.store');
+        Route::get('/{uuid}', 'AlbumController@show')->name('albums.show');
+        // Route::get('/{uuid}/edit', 'AlbumController@edit')->name('albums.edit');
+        // Route::get('/{uuid}/submit', 'AlbumController@submit')->name('albums.submit');
+        // Route::put('/{uuid}', 'AlbumController@update')->name('albums.update');
+        // Route::delete('/{uuid}', 'AlbumController@destroy')->name('albums.destroy');
 
     });
 

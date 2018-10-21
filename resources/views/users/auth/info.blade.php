@@ -14,7 +14,7 @@
                     Stack offers a clean and contemporary look to suit a range of purposes from corporate, tech startup, marketing site to digital
                     storefront.
                 </p>
-                <a class="btn btn--primary type--uppercase" href="#update-section" data-scroll-class="100vh:active">
+                <a class="btn btn--primary type--uppercase" href="#update-section" data-scroll>
                     <span class="btn__text">
                         Update your info
                     </span>
@@ -152,9 +152,7 @@
     </div>
     <!--end of container-->
 </section>
-<a class="back-to-top inner-link" href="#start" data-scroll-class="100vh:active">
-    <i class="stack-interface stack-up-open-big"></i>
-</a>
+
 
 <p>data_of_birth: {{$user->data_of_birth}} </p>
 @endsection

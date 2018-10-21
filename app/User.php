@@ -58,4 +58,8 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany('App\Story');
     }
 
+    public function album() 
+    {
+        return $this->hasMany('App\Album');
+    }
 }

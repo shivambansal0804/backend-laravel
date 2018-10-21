@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\ReportService;
 
 class PageController extends Controller
 {
+
+    public function __construct(ReportService $report)
+    {
+        $this->report = $report;
+    }
+
     /**
      * 
      */
@@ -36,5 +43,10 @@ class PageController extends Controller
     public function team()
     {
         return view('pages.team');
+    }
+
+    public function test ()
+    {
+        return 1;
     }
 }

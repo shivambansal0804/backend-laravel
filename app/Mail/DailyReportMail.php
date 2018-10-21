@@ -6,23 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Story;
-use Log;
+use App\Services\ReportService;
 
-class StoryPublishedMail extends Mailable
+class DailyReportMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $story;
+    public $stats;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Story $story)
+    public function __construct($stats)
     {
-        $this->story = $story;
+        $this->stats = $stats;
     }
 
     /**
@@ -32,9 +31,9 @@ class StoryPublishedMail extends Mailable
      */
     public function build()
     {
-        return $this->from('mani00manu@gmail.com')->subject("Story Published, {$this->story->title}")
-                 ->view('emails.stories.published')->with([
-                     'story' => $this->story
+        return $this->from('mani00manu@gmail.com')->subject("Daily Stats")
+                 ->view('emails.reports.daily')->with([
+                     'stats' => $this->stats
                  ]);
     }
 }
