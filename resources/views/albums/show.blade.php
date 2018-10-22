@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="cover height-100 cover-features imagebg space--lg" data-overlay="2">
+<section class="cover cover-fullscreen height-100 cover-features imagebg space--lg" data-overlay="2">
     <div class="background-image-holder">
         <img alt="background" src="{{ $album->getFirstMediaUrl('covers', 'fullscreen') }}" />
     </div>
