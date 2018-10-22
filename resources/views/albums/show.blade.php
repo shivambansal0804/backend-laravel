@@ -38,7 +38,7 @@
     <!--end of container-->
 </section>
 
-@if ($subs)
+@if ($subs->count())
     <section class="cover cover-fullscreen height-100 imagebg slider text-center" data-paging="{{ ($subs->count() > 3) ? 'true' : 'false' }}"
         data-arrows="{{ ($subs->count() > 3) ? 'true' : 'false' }}" data-timing="9000">
         <ul class="slides">
