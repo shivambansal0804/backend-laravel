@@ -1,7 +1,7 @@
 @extends('layouts.app') 
 @section('content')
 
-<div class="notification pos-right pos-bottom custom__notification" data-animation="from-bottom" data-autoshow="200" data-autohide="5000">
+{{-- <div class="notification pos-right pos-bottom custom__notification" data-animation="from-bottom" data-autoshow="200" data-autohide="5000">
     <div class="boxed boxed--border border--round box-shadow">
         <div class="text-block">
             <h5>Notification</h5>
@@ -10,11 +10,11 @@
             </p>
         </div>
     </div>
-</div>
+</div> --}}
+
 
 @if ($albums->count())
-
-    <section class="cover cover-fullscreen height-100 imagebg slider text-center" data-paging="{{ ($albums->count() > 3) ? 'true' : 'false' }}" data-arrows="{{ ($albums->count() > 3) ? 'true' : 'false' }}" data-timing="9000">
+    <section class="cover cover-fullscreen height-100 imagebg slider text-center" data-paging="true" data-arrows="true" data-timing="9000">
         <ul class="slides">
             @foreach ($albums as $item)
             <li class="imagebg col-lg-4 col-md-6 col-12" data-overlay="1">
@@ -35,9 +35,10 @@
                 <!--end of container-->
             </li>
             @endforeach
-    
         </ul>
     </section>
+
+ 
 @else
     <section class="space--lg">
         <div class="container">

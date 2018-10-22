@@ -39,8 +39,7 @@
 </section>
 
 @if ($subs->count())
-    <section class="cover cover-fullscreen height-100 imagebg slider text-center" data-paging="{{ ($subs->count() > 3) ? 'true' : 'false' }}"
-        data-arrows="{{ ($subs->count() > 3) ? 'true' : 'false' }}" data-timing="9000">
+    <section class="cover cover-fullscreen height-100 imagebg slider text-center" data-paging="true" data-arrows="true" data-timing="9000">
         <ul class="slides">
             @foreach ($subs as $item)
             <li class="imagebg col-lg-4 col-md-6 col-12" data-overlay="1">
@@ -52,8 +51,8 @@
                         <div class="col-md-12">
                             <h4>{{ $item->name }}</h4>
                             <a href="{{ route('albums.show', $item->uuid) }}">
-                                Explore Gallery
-                            </a>
+                                    Explore Gallery
+                                </a>
                         </div>
                     </div>
                     <!--end of row-->
@@ -61,7 +60,6 @@
                 <!--end of container-->
             </li>
             @endforeach
-    
         </ul>
     </section>
 @endif
