@@ -57,7 +57,7 @@ class ImageController extends Controller
      */
     public function show($uuid /** Album Uuid */, $image /** Image Uuid */)
     {
-        $item = auth()->user()->album()->whereUuid($uuid)->firstOrFail()->image()->whereUuid($image)->firstOrFail();
+        $item = \App\Album::whereUuid($uuid)->firstOrFail()->image()->whereUuid($image)->with('user')->firstOrFail();
         return view('images.show', ['image' => $item]);
     }
 

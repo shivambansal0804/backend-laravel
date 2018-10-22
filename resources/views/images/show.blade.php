@@ -9,17 +9,27 @@
             <div class="row justify-content-center">
                 <div class="col-md-9 col-lg-7">
                     <h1>
-                        Heading Will be Here
+                        {{ $image->name }}
                     </h1>
                     <p class="lead">
                         Stack offers a clean and contemporary look to suit a range of purposes from corporate, tech startup, marketing site to digital
                         storefront.
                     </p>
-                    <a class="btn btn--sm type--uppercase" href="#">
-                        <span class="btn__text">
-                            Edit 
-                        </span>
-                    </a>
+                    <p>
+                        <span><small>by {{ $image->user->name }}</small></span>
+                    </p>
+                    @if(auth()->user()->id == $image->user->id)
+                        <a class="btn btn--sm type--uppercase" href="#">
+                            <span class="btn__text">
+                                Edit 
+                            </span>
+                        </a>
+                        <a class="btn btn--sm type--uppercase" href="#">
+                            <span class="btn__text">
+                                Delete 
+                            </span>
+                        </a>
+                    @endif
                 </div>
             </div>
             <!--end of row-->

@@ -19,6 +19,7 @@ class CreateImagesTable extends Migration
             $table->integer('album_id')->unsigned();
             $table->text('name')->nullable();
             $table->text('biliner')->nullable();
+            $table->enum('status', ['draft', 'pending', 'published']);
             $table->uuid('uuid')->unique();
             $table->timestamps();
         });

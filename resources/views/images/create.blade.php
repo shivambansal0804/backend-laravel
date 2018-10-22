@@ -19,7 +19,7 @@
                     @csrf
 
                     <div class="col-md-12">
-                        <h4 class="mb-0 mt-1">Cover</h4>
+                        <h4 class="mb-0 mt-1">Upload Image</h4>
                     </div>
 
                     <div class="col-md-12">

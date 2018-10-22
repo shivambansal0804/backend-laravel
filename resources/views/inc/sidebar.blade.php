@@ -77,20 +77,23 @@
                                             All
                                         </a>
                                     </li>
+
+                                    @if (auth()->user()->can('create-album'))
                                     <li>
                                         <a href="{{ route('albums.create') }}">
                                             Create 
                                         </a>
                                     </li>
+                                    @endif
 
                                     {{-- Publish Story --}}
-                                    {{-- @if (auth()->user()->can('publish-story'))
+                                    @if (auth()->user()->can('publish-album'))
                                     <li>
                                         <a href="{{ route('council.stories.index')}}" >
                                             Pending 
                                         </a>
                                     </li> 
-                                    @endif --}}
+                                    @endif
                                 </ul>
                             </div>
                         </div>

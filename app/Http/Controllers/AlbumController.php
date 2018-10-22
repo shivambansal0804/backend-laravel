@@ -14,7 +14,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = auth()->user()->album()->get();
+        $albums = \App\Album::all();
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -37,7 +37,7 @@ class AlbumController extends Controller
     public function store(StoreAlbum $request)
     {
         $album = auth()->user()->album()->create([
-            'name' => 'test'
+            'name' => $request->name
         ]); 
 
         if (isset($request['cover'])) {
@@ -57,11 +57,11 @@ class AlbumController extends Controller
     {
         $images = [];
 
-        $album = auth()->user()->album()->whereUuid($uuid)->with('image', 'user')->first();
+        $album = \App\Album::whereUuid($uuid)->with('image')->first();
 
         $subs = $album->child()->get();
 
-        return view('albums.show', ['album' => $album]);
+        return view('albums.show', ['album' => $album, 'subs' => $subs]);
     }
 
     /**

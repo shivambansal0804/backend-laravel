@@ -15,11 +15,22 @@
                     Stack offers a clean and contemporary look to suit a range of purposes from corporate, tech startup, marketing site to digital
                     storefront.
                 </p>
-                <a class="btn btn--sm type--uppercase" href="#">
+                @if (auth()->user()->can('delete-album'))
+                    <a class="btn btn--sm type--uppercase" href="#">
                         <span class="btn__text">
-                            Edit 
+                            Delete 
                         </span>
                     </a>
+                @endif
+
+                @if (auth()->user()->can('update-album'))
+                    
+                @endif
+                <a class="btn btn--sm type--uppercase" href="{{ route('images.create', $album->uuid) }}">
+                    <span class="btn__text">
+                        Add Images
+                    </span>
+                </a>
             </div>
         </div>
         <!--end of row-->
@@ -27,6 +38,35 @@
     <!--end of container-->
 </section>
 
+@if ($subs)
+    <section class="cover cover-fullscreen height-100 imagebg slider text-center" data-paging="{{ ($subs->count() > 3) ? 'true' : 'false' }}"
+        data-arrows="{{ ($subs->count() > 3) ? 'true' : 'false' }}" data-timing="9000">
+        <ul class="slides">
+            @foreach ($subs as $item)
+            <li class="imagebg col-lg-4 col-md-6 col-12" data-overlay="1">
+                <div class="background-image-holder">
+                    <img alt="background" src="{{ $item->getFirstMediaUrl('covers', 'cover')}}" />
+                </div>
+                <div class="pos-vertical-center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>{{ $item->name }}</h4>
+                            <a href="{{ route('albums.show', $item->uuid) }}">
+                                Explore Gallery
+                            </a>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </li>
+            @endforeach
+    
+        </ul>
+    </section>
+@endif
+
+@if ($album->image)
 <section class="unpad">
     <div class="masonry masonry--gapless">
         <div class="masonry__container">
@@ -73,4 +113,5 @@
     </div>
     <!--end masonry-->
 </section>
+@endif
 @endsection
