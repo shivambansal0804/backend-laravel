@@ -16,7 +16,12 @@ class AlbumController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
+        $albums = \App\Album::all();
+        // $albums = auth()->user()->album()->latest()->get();
+=======
         $albums = Album::all();
+>>>>>>> 64af27acf4abad83247d80b971658e301df8f237
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -103,13 +108,26 @@ class AlbumController extends Controller
         $album->update($data);
 
         if (isset($request['cover'])) {
-            // $album -> remove image
+        // $album -> remove image
             $album->clearMediaCollection('covers');
             $album->addMediaFromRequest('cover')->toMediaCollection('covers');
         } 
 
         return redirect()->route('albums.index');
     }
+<<<<<<< HEAD
+     public function submit($uuid)
+   {
+       $album = \App\Album::whereUuid($uuid)->firstOrFail();
+       
+       $album->update([
+           'status' => 'pending'
+       ]);
+
+       session()->flash('success', $album->name.', Submitted for approval.');
+       return redirect()->route('albums.index');
+   }
+=======
 
     public function submit($uuid)
     {
@@ -122,6 +140,7 @@ class AlbumController extends Controller
         session()->flash('success', $album->name.', Submitted for approval.');
         return redirect()->route('albums.show', $album->uuid);
     }
+>>>>>>> 64af27acf4abad83247d80b971658e301df8f237
 
     /**
      * Remove the specified resource from storage.
