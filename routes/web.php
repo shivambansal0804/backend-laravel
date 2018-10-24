@@ -85,8 +85,6 @@ Route::group(['prefix' => 'blog'], function() {
     
 });
 
-// Gallery routes
-
 // First Time Login Routes
 Route::middleware('auth')->group(function () {
     Route::get('/me/info', 'User\UserController@info')->name('me.info');
@@ -153,27 +151,17 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::get('/create', 'AlbumController@create')->name('albums.create');
         Route::post('/', 'AlbumController@store')->name('albums.store');
         Route::get('/{uuid}', 'AlbumController@show')->name('albums.show');
+        Route::get('/{uuid}/edit', 'AlbumController@edit')->name('albums.edit');
+        Route::put('/{uuid}', 'AlbumController@update')->name('albums.update');
+     // Route::get('/{uuid}/submit', 'AlbumController@submit')->name('albums.submit');
+     // Route::delete('/{uuid}', 'AlbumController@destroy')->name('albums.destroy');
         Route::group(['prefix' => '{uuid}/images', 'middleware' => 'CheckAlbum'], function() {
             Route::get('/', 'ImageController@index')->name('images.index');
             Route::get('/create', 'ImageController@create')->name('images.create');
             Route::post('/', 'ImageController@store')->name('images.store');
             Route::get('/{image}', 'ImageController@show')->name('images.show');
-            // image 
-            // del 
-            // remove
-            // biliner 
-            // editing also for council  
-            // publishing 
-            // submitting 
-            // save back to draft
         });
-        // Route::get('/{uuid}/edit', 'AlbumController@edit')->name('albums.edit');
-        // Route::get('/{uuid}/submit', 'AlbumController@submit')->name('albums.submit');
-        // Route::put('/{uuid}', 'AlbumController@update')->name('albums.update');
-        // Route::delete('/{uuid}', 'AlbumController@destroy')->name('albums.destroy');
-        // submit
-        // publish
-        // save back to draft
+
 
     });
 

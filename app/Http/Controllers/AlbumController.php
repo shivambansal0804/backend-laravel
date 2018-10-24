@@ -70,9 +70,18 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($uuid)
     {
-        //
+        $album = auth()->user()->album()->whereUuid($uuid)->with(['image'])->firstOrFail();
+        $subs = $album->child()->get();
+        if($album->status != 'draft'){
+            session()->flash('success', $album->title.', is '.$album->status.'. You cannot edit it right now.');
+            return redirect()->route('albums.show', ['album' => $album, 'subs' => $subs]);
+        }
+
+        
+
+        return view('albums.edit', ['album' => $album, 'subs' => $subs]);
     }
 
     /**
@@ -82,9 +91,24 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+         $data = [
+            'name'             => $request->name,
+            'biliner'           => $request->biliner,
+            'status'            => $request->status,
+            'cover'             => $request->cover
+        ];
+        $album = \App\Album::whereUuid($uuid)->firstOrFail();
+        $album->update($data);
+
+        if (isset($request['cover'])) {
+            // $album -> remove image
+            $album->clearMediaCollection('covers');
+            $album->addMediaFromRequest('cover')->toMediaCollection('covers');
+        } 
+
+        return redirect()->route('albums.index');
     }
 
     /**
