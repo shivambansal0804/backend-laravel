@@ -180,7 +180,7 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::get('/{uuid}', 'AlbumController@show')->name('albums.show');
         Route::get('/{uuid}/edit', 'AlbumController@edit')->name('albums.edit');
         Route::put('/{uuid}', 'AlbumController@update')->name('albums.update');
-     // Route::get('/{uuid}/submit', 'AlbumController@submit')->name('albums.submit');
+        Route::get('/{uuid}/submit', 'AlbumController@submit')->name('albums.submit');
      // Route::delete('/{uuid}', 'AlbumController@destroy')->name('albums.destroy');
         Route::group(['prefix' => '{uuid}/images', 'middleware' => 'CheckAlbum'], function() {
             Route::get('/', 'ImageController@index')->name('images.index');
