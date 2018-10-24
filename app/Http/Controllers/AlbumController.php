@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAlbum;
 
+
 class AlbumController extends Controller
 {
     /**
@@ -14,7 +15,8 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = \App\Album::all();
+        /*$albums = \App\Album::all();*/
+        $albums = auth()->user()->album()->latest()->get();
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -110,6 +112,17 @@ class AlbumController extends Controller
 
         return redirect()->route('albums.index');
     }
+     public function submit($uuid)
+   {
+       $album = auth()->user()->album()->whereUuid($uuid)->firstOrFail();
+       
+       $album->update([
+           'status' => 'pending'
+       ]);
+    return $album;
+       session()->flash('success', $album->name.', Submitted for approval.');
+       return redirect()->route('albums.index');
+   }
 
     /**
      * Remove the specified resource from storage.
