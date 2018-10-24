@@ -24,10 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
         $schedule->call('\App\Services\ReportService@sendDailyReport')->dailyAt('20:15');
-        $schedule->command('dtutimes:weekly-report')->mondays();
+        $schedule->call('\App\Services\ReportService@sendWeeklyReport')->mondays()->at('00:00');
     }
 
     /**

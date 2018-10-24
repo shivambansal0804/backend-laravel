@@ -62,9 +62,31 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser', 'check
         Route::delete('/users/{uuid}', 'User\SuperuserController@destroyUser')->name('users.destroy');
 });
 
-Route::group(['prefix' => 'council', 'middleware' => ['role:council', 'checkActivatedUser']], function() {
+Route::group(['prefix' => 'council', 'middleware' => ['role:council|superuser', 'checkActivatedUser']], function() {
     // Dashboard
     Route::get('/', 'User\SuperuserController@index')->name('council.dashboard');
+
+    // Campaign Routes
+    Route::group(['prefix' => 'campaign'], function () {
+        Route::get('/', 'Email\CampaignController@index')->name('campaign.index');
+        Route::get('/create', 'Email\CampaignController@create')->name('campaign.create');
+        Route::post('/', 'Email\CampaignController@store')->name('campaign.store');
+        Route::get('/{uuid}', 'Email\CampaignController@show')->name('campaign.show');
+        Route::get('/{uuid}/edit', 'Email\CampaignController@edit')->name('campaign.edit');
+        Route::put('/{uuid}', 'Email\CampaignController@update')->name('campaign.update');
+        Route::delete('/{uuid}', 'Email\CampaignController@destroy')->name('campaign.destroy');
+    });
+
+    // Subscriber Counts
+    Route::group(['prefix' => 'subscriber'], function () {
+        Route::get('/', 'Email\SubscriberController@index')->name('subscriber.index');
+        Route::get('/create', 'Email\SubscriberController@create')->name('subscriber.create');
+        Route::post('/', 'Email\SubscriberController@store')->name('subscriber.store');
+        Route::get('/{uuid}', 'Email\SubscriberController@show')->name('subscriber.show');
+        Route::get('/{uuid}/edit', 'Email\SubscriberController@edit')->name('subscriber.edit');
+        Route::put('/{uuid}', 'Email\SubscriberController@update')->name('subscriber.update');
+        Route::delete('/{uuid}', 'Email\SubscriberController@destroy')->name('subscriber.destroy');
+    });
 });
 
 // Blog routes
@@ -145,7 +167,6 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::put('/{uuid}', 'StoryController@update')->name('stories.update');
         Route::put('/{uuid}/autosave', 'StoryController@autoSave')->name('stories.autosave');
         Route::delete('/{uuid}', 'StoryController@destroy')->name('stories.destroy');
-
     });
 
     // Album Routes

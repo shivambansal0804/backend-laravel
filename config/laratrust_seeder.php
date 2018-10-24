@@ -9,7 +9,8 @@ return [
             'gallery' => 'c,r,u,d',
             'album' => 'c,r,u,d,p',
             'category' => 'c,r,u,d',
-            'image' => 'p'
+            'image' => 'p',
+            'campaign' => 'c,r,u,d,s'
         ],
         'council' => [
             'profile' => 'r,u',
@@ -17,7 +18,8 @@ return [
             'gallery' => 'c,r,u,d',
             'album' => 'c,r,u,d,p',
             'category' => 'c,r,u,d',
-            'image' => 'p'
+            'image' => 'p',
+            'campaign' => 'c,r,u,d,s'
         ],
         'coordinator' => [
             'profile' => 'r,u',
@@ -41,6 +43,7 @@ return [
         'r' => 'read',
         'u' => 'update',
         'd' => 'delete',
-        'p' => 'publish'
+        'p' => 'publish',
+        's' => 'send'
     ]
 ];
