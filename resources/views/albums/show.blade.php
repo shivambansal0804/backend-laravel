@@ -24,7 +24,11 @@
                 @endif
 
                 @if (auth()->user()->can('update-album'))
-                    
+                    <a class="btn btn--sm type--uppercase" href="{{ route('albums.edit', $album->uuid) }}">
+                    <span class="btn__text">
+                        Edit
+                    </span>
+                </a>
                 @endif
                 <a class="btn btn--sm type--uppercase" href="{{ route('images.create', $album->uuid) }}">
                     <span class="btn__text">
