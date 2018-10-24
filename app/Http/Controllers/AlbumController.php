@@ -133,7 +133,7 @@ class AlbumController extends Controller
     {
         $album = auth()->user()->album()->whereUuid($uuid)->firstOrFail();
         $name = $album->name;
-        
+       
         $album->delete();
 
         session()->flash('success', $name.', Deleted!');
