@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAlbum;
+use App\Models\Album;
 
 
 class AlbumController extends Controller
@@ -15,7 +16,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = \App\Models\Album::all();
+        $albums = Album::all();
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -58,10 +59,10 @@ class AlbumController extends Controller
     {
         $images = [];
 
-        $album = \App\Models\Album::whereUuid($uuid)->with('image')->first();
+        $album = Album::whereUuid($uuid)->with('image')->first();
 
         $subs = $album->child()->get();
-
+        return $album;
         return view('albums.show', ['album' => $album, 'subs' => $subs]);
     }
 
@@ -75,12 +76,11 @@ class AlbumController extends Controller
     {
         $album = auth()->user()->album()->whereUuid($uuid)->with(['image'])->firstOrFail();
         $subs = $album->child()->get();
+
         if($album->status != 'draft'){
             session()->flash('success', $album->title.', is '.$album->status.'. You cannot edit it right now.');
             return redirect()->route('albums.show', ['album' => $album, 'subs' => $subs]);
         }
-
-        
 
         return view('albums.edit', ['album' => $album, 'subs' => $subs]);
     }
@@ -111,17 +111,18 @@ class AlbumController extends Controller
 
         return redirect()->route('albums.index');
     }
-     public function submit($uuid)
-   {
-       $album = auth()->user()->album()->whereUuid($uuid)->firstOrFail();
-       
-       $album->update([
-           'status' => 'pending'
-       ]);
-    return $album;
-       session()->flash('success', $album->name.', Submitted for approval.');
-       return redirect()->route('albums.index');
-   }
+
+    public function submit($uuid)
+    {
+        $album = Album::whereUuid($uuid)->firstOrFail();
+        
+        $album->update([
+            'status' => 'pending'
+        ]);
+
+        session()->flash('success', $album->name.', Submitted for approval.');
+        return redirect()->route('albums.show', $album->uuid);
+    }
 
     /**
      * Remove the specified resource from storage.
