@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuids;
@@ -24,7 +24,7 @@ class Image extends Model implements HasMedia
 
     public function album()
     { 
-        return $this->belongsTo('App\Album');
+        return $this->belongsTo('App\Models\Album');
     }
 
     public function user()

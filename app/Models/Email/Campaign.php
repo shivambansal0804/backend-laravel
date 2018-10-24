@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Email;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class Campaign extends Model
 {
     //
 }

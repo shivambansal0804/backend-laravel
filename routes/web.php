@@ -86,6 +86,7 @@ Route::group(['prefix' => 'blog'], function() {
 });
 
 // Gallery routes
+// read
 
 // First Time Login Routes
 Route::middleware('auth')->group(function () {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreImage;
 
@@ -57,7 +57,7 @@ class ImageController extends Controller
      */
     public function show($uuid /** Album Uuid */, $image /** Image Uuid */)
     {
-        $item = \App\Album::whereUuid($uuid)->firstOrFail()->image()->whereUuid($image)->with('user')->firstOrFail();
+        $item = \App\Models\Album::whereUuid($uuid)->firstOrFail()->image()->whereUuid($image)->with('user')->firstOrFail();
         return view('images.show', ['image' => $item]);
     }
 

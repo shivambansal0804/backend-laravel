@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Category, Tags, Story};
+use App\Models\{Category, Tags, Story};
 
 class BlogController extends Controller
 {

@@ -14,7 +14,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = \App\Album::all();
+        $albums = \App\Models\Album::all();
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -57,7 +57,7 @@ class AlbumController extends Controller
     {
         $images = [];
 
-        $album = \App\Album::whereUuid($uuid)->with('image')->first();
+        $album = \App\Models\Album::whereUuid($uuid)->with('image')->first();
 
         $subs = $album->child()->get();
 
