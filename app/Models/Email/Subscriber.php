@@ -8,4 +8,8 @@ use App\Traits\Uuids;
 class Subscriber extends Model
 {
     use Uuids;
+
+    protected $fillable = [
+        'email'
+    ];
 }

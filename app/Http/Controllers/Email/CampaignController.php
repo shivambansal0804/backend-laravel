@@ -16,7 +16,7 @@ class CampaignController extends Controller
     public function index()
     {
         $campaigns = Campaign::latest()->get();
-        return $campaigns;
+        return view('campaigns.index', [ 'campaigns' => $campaigns ]);
     }
 
     /**

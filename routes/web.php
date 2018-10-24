@@ -17,6 +17,9 @@ Route::get('/contact', 'PageController@contact')->name('contact');
 Route::get('/team', 'PageController@team')->name('team');
 Route::get('/test', 'PageController@test');
 
+// Join the newsletter
+Route::post('/subscribe', 'Email\SubscriberController@join')->name('subscribers.join');
+
 // Login
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
@@ -68,24 +71,24 @@ Route::group(['prefix' => 'council', 'middleware' => ['role:council|superuser', 
 
     // Campaign Routes
     Route::group(['prefix' => 'campaign'], function () {
-        Route::get('/', 'Email\CampaignController@index')->name('campaign.index');
-        Route::get('/create', 'Email\CampaignController@create')->name('campaign.create');
-        Route::post('/', 'Email\CampaignController@store')->name('campaign.store');
-        Route::get('/{uuid}', 'Email\CampaignController@show')->name('campaign.show');
-        Route::get('/{uuid}/edit', 'Email\CampaignController@edit')->name('campaign.edit');
-        Route::put('/{uuid}', 'Email\CampaignController@update')->name('campaign.update');
-        Route::delete('/{uuid}', 'Email\CampaignController@destroy')->name('campaign.destroy');
+        Route::get('/', 'Email\CampaignController@index')->name('campaigns.index');
+        Route::get('/create', 'Email\CampaignController@create')->name('campaigns.create');
+        Route::post('/', 'Email\CampaignController@store')->name('campaigns.store');
+        Route::get('/{uuid}', 'Email\CampaignController@show')->name('campaigns.show');
+        Route::get('/{uuid}/edit', 'Email\CampaignController@edit')->name('campaigns.edit');
+        Route::put('/{uuid}', 'Email\CampaignController@update')->name('campaigns.update');
+        Route::delete('/{uuid}', 'Email\CampaignController@destroy')->name('campaigns.destroy');
     });
 
     // Subscriber Counts
     Route::group(['prefix' => 'subscriber'], function () {
-        Route::get('/', 'Email\SubscriberController@index')->name('subscriber.index');
-        Route::get('/create', 'Email\SubscriberController@create')->name('subscriber.create');
-        Route::post('/', 'Email\SubscriberController@store')->name('subscriber.store');
-        Route::get('/{uuid}', 'Email\SubscriberController@show')->name('subscriber.show');
-        Route::get('/{uuid}/edit', 'Email\SubscriberController@edit')->name('subscriber.edit');
-        Route::put('/{uuid}', 'Email\SubscriberController@update')->name('subscriber.update');
-        Route::delete('/{uuid}', 'Email\SubscriberController@destroy')->name('subscriber.destroy');
+        Route::get('/', 'Email\SubscriberController@index')->name('subscribers.index');
+        Route::get('/create', 'Email\SubscriberController@create')->name('subscribers.create');
+        Route::post('/', 'Email\SubscriberController@store')->name('subscribers.store');
+        Route::get('/{uuid}', 'Email\SubscriberController@show')->name('subscribers.show');
+        Route::get('/{uuid}/edit', 'Email\SubscriberController@edit')->name('subscribers.edit');
+        Route::put('/{uuid}', 'Email\SubscriberController@update')->name('subscribers.update');
+        Route::delete('/{uuid}', 'Email\SubscriberController@destroy')->name('subscribers.destroy');
     });
 });
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Email;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Email\Subscriber;
+use App\Http\Requests\StoreSubscriber;
+
 
 class SubscriberController extends Controller
 {
@@ -15,7 +17,7 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        return Subscriber::all();
+        return view('subscribers.index')->withSubscribers(Subscriber::all());
     }
 
     /**
@@ -23,9 +25,11 @@ class SubscriberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($email)
     {
-        //
+        return Subscriber::create([
+            'email' => $email
+        ]);
     }
 
     /**
@@ -34,9 +38,9 @@ class SubscriberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSubscriber $request)
     {
-        //
+        return $this->create($request->email);
     }
 
     /**
@@ -45,9 +49,9 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return Subscriber::whereUuid($uuid)->firstOrFail();
     }
 
     /**
@@ -58,7 +62,7 @@ class SubscriberController extends Controller
      */
     public function edit($id)
     {
-        //
+        //x
     }
 
     /**
@@ -68,9 +72,11 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        return Subscriber::whereUuid($uuid)->firstOrFail()->update([
+            'email' => $request->email
+        ]);
     }
 
     /**
@@ -79,8 +85,14 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        //
+        Subscriber::whereUuid($uuid)->firstOrFail()->delete();
+        return redirect()->back();
+    }
+
+    public function join(StoreSubscriber $request)
+    {
+        return $this->create($request->email);
     }
 }
