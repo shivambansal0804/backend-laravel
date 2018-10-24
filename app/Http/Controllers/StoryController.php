@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Category, Tag, Story};
+use App\Models\{Category, Tag, Story};
 use App\Http\Requests\StoreStory;
+use App\Events\StorySubmittedForApproval;
 use Session;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Log;
-use App\Events\StorySubmittedForApproval;
+
 
 class StoryController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuids;
@@ -13,7 +13,7 @@ class Album extends Model implements HasMedia
     use Uuids;
     use HasMediaTrait;
 
-    protected $fillable = ['name', 'user_id', 'uuid', 'album_id'];
+    protected $fillable = ['name', 'user_id', 'uuid', 'album_id', 'status'];
 
     public function registerMediaConversions(Media $media = null)
     {
@@ -37,16 +37,16 @@ class Album extends Model implements HasMedia
 
     public function child()
     {
-        return $this->hasMany('App\Album');
+        return $this->hasMany('App\Models\Album');
     }
 
     public function parent()
     {
-        return $this->belongsTo('App\Album');
+        return $this->belongsTo('App\Models\Album');
     }
 
     public function image()
     {
-        return $this->hasMany('App\Image');
+        return $this->hasMany('App\Models\Image');
     }
 }

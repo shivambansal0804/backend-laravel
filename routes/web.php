@@ -17,6 +17,9 @@ Route::get('/contact', 'PageController@contact')->name('contact');
 Route::get('/team', 'PageController@team')->name('team');
 Route::get('/test', 'PageController@test');
 
+// Join the newsletter
+Route::post('/subscribe', 'Email\SubscriberController@join')->name('subscribers.join');
+
 // Login
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
@@ -62,9 +65,31 @@ Route::group(['prefix' => 'superuser', 'middleware' => ['role:superuser', 'check
         Route::delete('/users/{uuid}', 'User\SuperuserController@destroyUser')->name('users.destroy');
 });
 
-Route::group(['prefix' => 'council', 'middleware' => ['role:council', 'checkActivatedUser']], function() {
+Route::group(['prefix' => 'council', 'middleware' => ['role:council|superuser', 'checkActivatedUser']], function() {
     // Dashboard
     Route::get('/', 'User\SuperuserController@index')->name('council.dashboard');
+
+    // Campaign Routes
+    Route::group(['prefix' => 'campaign'], function () {
+        Route::get('/', 'Email\CampaignController@index')->name('campaigns.index');
+        Route::get('/create', 'Email\CampaignController@create')->name('campaigns.create');
+        Route::post('/', 'Email\CampaignController@store')->name('campaigns.store');
+        Route::get('/{uuid}', 'Email\CampaignController@show')->name('campaigns.show');
+        Route::get('/{uuid}/edit', 'Email\CampaignController@edit')->name('campaigns.edit');
+        Route::put('/{uuid}', 'Email\CampaignController@update')->name('campaigns.update');
+        Route::delete('/{uuid}', 'Email\CampaignController@destroy')->name('campaigns.destroy');
+    });
+
+    // Subscriber Counts
+    Route::group(['prefix' => 'subscriber'], function () {
+        Route::get('/', 'Email\SubscriberController@index')->name('subscribers.index');
+        Route::get('/create', 'Email\SubscriberController@create')->name('subscribers.create');
+        Route::post('/', 'Email\SubscriberController@store')->name('subscribers.store');
+        Route::get('/{uuid}', 'Email\SubscriberController@show')->name('subscribers.show');
+        Route::get('/{uuid}/edit', 'Email\SubscriberController@edit')->name('subscribers.edit');
+        Route::put('/{uuid}', 'Email\SubscriberController@update')->name('subscribers.update');
+        Route::delete('/{uuid}', 'Email\SubscriberController@destroy')->name('subscribers.destroy');
+    });
 });
 
 // Blog routes
@@ -84,6 +109,9 @@ Route::group(['prefix' => 'blog'], function() {
     
     
 });
+
+// Gallery routes
+// read
 
 // First Time Login Routes
 Route::middleware('auth')->group(function () {
@@ -142,7 +170,6 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::put('/{uuid}', 'StoryController@update')->name('stories.update');
         Route::put('/{uuid}/autosave', 'StoryController@autoSave')->name('stories.autosave');
         Route::delete('/{uuid}', 'StoryController@destroy')->name('stories.destroy');
-
     });
 
     // Album Routes

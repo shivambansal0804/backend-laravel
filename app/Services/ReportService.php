@@ -5,7 +5,7 @@ namespace App\Services;
 use Carbon\Carbon;
 use App\Mail\DailyReportMail;
 use App\User;
-use App\Story;
+use App\Models\Story;
 
 
 class ReportService 
@@ -13,9 +13,18 @@ class ReportService
 
     public function sendDailyReport()
     {
-        dump('called');
-        $council = User::with('roles')->where('name','council')->get();
+        $council = $this->getUsersWithRole('council');
         $stats =  $this->getDailyStats();
+
+        foreach ($council as $user) {
+            \Mail::to($user->email)->send(new DailyReportMail($stats)); 
+        }
+    }
+
+    public function sendWeeklyReport()
+    {
+        $council = $this->getUsersWithRole('council');
+        $stats = $this->getWeeklyStats();
 
         foreach ($council as $user) {
             \Mail::to($user->email)->send(new DailyReportMail($stats)); 
@@ -31,8 +40,29 @@ class ReportService
         ];
     }
 
+    public function getWeeklyStats()
+    {
+        $from = Carbon::now()->subWeek();
+
+        return [
+            'drafts' => $this->storyWithStatusInLastWeek('draft', $from), 
+            'pendings' => $this->storyWithStatusInLastWeek('pending', $from), 
+            'published' => $this->storyWithStatusInLastWeek('published', $from), 
+        ];
+    }
+
     public function storyWithStatusAndDate($status, $date)
     {
         return Story::whereDate('created_at', $date)->where('status', $status)->with('user')->get();
+    }
+
+    public function storyWithStatusInLastWeek($status, $week)
+    {
+        return Story::where('created_at', '>=', $week)->where('status', $status)->with('user')->get();
+    }
+
+    public function getUsersWithRole($role)
+    {
+        return User::with('roles')->where('name', $role)->get();
     }
 }

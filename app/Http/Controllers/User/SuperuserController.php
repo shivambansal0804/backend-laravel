@@ -5,9 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUser;
-use App\User;
-use App\Role;
-use App\Permission;
+use App\Models\{ User, Permission, Role };
 use App\Events\UserHasRegistered;
 
 class SuperuserController extends Controller

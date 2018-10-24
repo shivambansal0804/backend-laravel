@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Email;
 
 use Illuminate\Http\Request;
-use App\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Models\Email\Campaign;
 
-class RoleController extends Controller
+class CampaignController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +15,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index', [
-            'roles' => $roles
-        ]);
+        $campaigns = Campaign::latest()->get();
+        return view('campaigns.index', [ 'campaigns' => $campaigns ]);
     }
 
     /**
@@ -27,7 +26,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

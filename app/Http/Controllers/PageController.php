@@ -47,6 +47,6 @@ class PageController extends Controller
 
     public function test ()
     {
-        return 1;
+        return $this->report->sendWeeklyReport();
     }
 }

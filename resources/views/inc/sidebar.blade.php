@@ -164,8 +164,16 @@
                     </div>
                 </li>
                 @endif
+
+                @if (!auth()->user()->hasRole('council')) 
+                    <li>
+                        <a href="{{ route('subscribers.index')}}">Subscribers</a>
+                    </li>
+                @endif
                 
             </ul>
+
+            
         </div>
 
 

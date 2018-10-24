@@ -15,7 +15,7 @@ class CheckAlbum
      */
     public function handle($request, Closure $next)
     {
-        $album = \App\Album::whereUuid($request->route('uuid'))->firstOrFail();
+        $album = \App\Models\Album::whereUuid($request->route('uuid'))->firstOrFail();
         if($album) return $next($request);
     }
 }

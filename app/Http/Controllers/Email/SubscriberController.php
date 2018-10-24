@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Email;
 
 use Illuminate\Http\Request;
-use App\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Models\Email\Subscriber;
+use App\Http\Requests\StoreSubscriber;
 
-class RoleController extends Controller
+
+class SubscriberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index', [
-            'roles' => $roles
-        ]);
+        return view('subscribers.index')->withSubscribers(Subscriber::all());
     }
 
     /**
@@ -25,9 +25,11 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($email)
     {
-        //
+        return Subscriber::create([
+            'email' => $email
+        ]);
     }
 
     /**
@@ -36,9 +38,9 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSubscriber $request)
     {
-        //
+        return $this->create($request->email);
     }
 
     /**
@@ -47,9 +49,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return Subscriber::whereUuid($uuid)->firstOrFail();
     }
 
     /**
@@ -60,7 +62,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        //x
     }
 
     /**
@@ -70,9 +72,11 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        return Subscriber::whereUuid($uuid)->firstOrFail()->update([
+            'email' => $request->email
+        ]);
     }
 
     /**
@@ -81,8 +85,14 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        //
+        Subscriber::whereUuid($uuid)->firstOrFail()->delete();
+        return redirect()->back();
+    }
+
+    public function join(StoreSubscriber $request)
+    {
+        return $this->create($request->email);
     }
 }

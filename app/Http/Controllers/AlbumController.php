@@ -15,8 +15,8 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        /*$albums = \App\Album::all();*/
-        $albums = auth()->user()->album()->latest()->get();
+        $albums = \App\Album::all();
+        // $albums = auth()->user()->album()->latest()->get();
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -105,7 +105,7 @@ class AlbumController extends Controller
         $album->update($data);
 
         if (isset($request['cover'])) {
-            // $album -> remove image
+        // $album -> remove image
             $album->clearMediaCollection('covers');
             $album->addMediaFromRequest('cover')->toMediaCollection('covers');
         } 
@@ -114,12 +114,12 @@ class AlbumController extends Controller
     }
      public function submit($uuid)
    {
-       $album = auth()->user()->album()->whereUuid($uuid)->firstOrFail();
+       $album = \App\Album::whereUuid($uuid)->firstOrFail();
        
        $album->update([
            'status' => 'pending'
        ]);
-    return $album;
+
        session()->flash('success', $album->name.', Submitted for approval.');
        return redirect()->route('albums.index');
    }
@@ -132,6 +132,12 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $album = auth()->user()->album()->whereUuid($uuid)->firstOrFail();
+        $name = $album->name;
+        
+        $album->delete();
+
+        session()->flash('success', $name.', Deleted!');
+        return redirect()->route('albums.index');
     }
 }

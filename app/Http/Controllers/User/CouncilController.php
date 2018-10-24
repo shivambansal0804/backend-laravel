@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Story, Category};
+use App\Models\{Story, Category};
 use App\Http\Requests\StoreStory;
 use App\Events\StoryPublished;
 
