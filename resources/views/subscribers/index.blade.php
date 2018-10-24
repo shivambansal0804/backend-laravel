@@ -42,10 +42,31 @@
                     <li>
                         <div class="accordion__title">
                             <span class="h5">{{$item->email}}
-                            <small>
-                                {{ $item->status }}                              
-                            </small>
-                        </span>
+                                <small>
+                                    {{ $item->status }}                              
+                                </small>
+                            </span>
+                        </div>
+                        <div class="accordion__content">
+                            <div class="text-right d-block">
+                                <a class="btn btn--sm type--uppercase" href="{{route('subscribers.show', $item->uuid)}}">
+                                    <span class="btn__text">
+                                        Show User
+                                    </span>
+                                </a>
+                                <a class="btn btn--sm type--uppercase"
+                                    href="{{ route('subscribers.index') }}" 
+                                    onclick="event.preventDefault(); 
+                                                document.getElementById('delete-form').submit(); "
+                                    >
+                                    <span class="btn__text">
+                                        Delete
+                                    </span>
+                                </a>
+                                <form id="delete-form" action="{{ route('subscribers.destroy', $item->id )}}" method="POST">
+                                    @csrf @method('DELETE')
+                                </form>
+                            </div>
                         </div>
                     </li>
                     @endforeach
