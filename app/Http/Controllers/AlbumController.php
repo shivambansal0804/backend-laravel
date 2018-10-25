@@ -94,13 +94,15 @@ class AlbumController extends Controller
      */
     public function update(Request $request, $uuid)
     {
-         $data = [
+        $data = [
             'name'             => $request->name,
             'biliner'           => $request->biliner,
             'status'            => $request->status,
             'cover'             => $request->cover
         ];
-        $album = \App\Album::whereUuid($uuid)->firstOrFail();
+
+        $album = Album::whereUuid($uuid)->firstOrFail();
+        
         $album->update($data);
 
         if (isset($request['cover'])) {

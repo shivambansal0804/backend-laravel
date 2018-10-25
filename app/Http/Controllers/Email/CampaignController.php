@@ -26,7 +26,7 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        
+        return view('campaigns.create');
     }
 
     /**
@@ -37,7 +37,14 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $campaign = Campaign::create([
+            'name' => $request->name,
+            'subject' => $request->subject,
+            'html' => $request->html,
+            'status' => 'draft'
+        ]);
+
+        return redirect()->route('campaigns.show', $campaign->uuid);
     }
 
     /**
@@ -46,9 +53,10 @@ class CampaignController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        $campaign = Campaign::whereUuid($uuid)->firstOrFail();
+        return view('campaigns.show', ['campaign' => $campaign]);
     }
 
     /**

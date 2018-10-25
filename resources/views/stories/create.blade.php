@@ -1,4 +1,5 @@
-@extends('layouts.app') 
+@extends('layouts.app')
+ 
 @section('links')
 <script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
 @endsection

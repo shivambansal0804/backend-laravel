@@ -169,6 +169,25 @@
                     <li>
                         <a href="{{ route('subscribers.index')}}">Subscribers</a>
                     </li>
+                    <li class="dropdown">
+                        <span>
+                            Campaigns
+                        </span>
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <ul class="menu-vertical">
+                                    <li>
+                                        <a href="{{ route('campaigns.index')}}">All</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('campaigns.create') }}">
+                                            Create
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
                 @endif
                 
             </ul>
