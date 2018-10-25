@@ -192,6 +192,7 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
             Route::get('/{image}', 'ImageController@show')->name('images.show');
             Route::get('/{image}/edit', 'ImageController@edit')->name('images.edit');
             Route::get('/{image}/submit', 'ImageController@submit')->name('images.submit');
+            Route::get('/{image}/publish', 'ImageController@publish')->name('images.publish');
             Route::put('/{image}', 'ImageController@update')->name('images.update');
             Route::delete('/{image}', 'ImageController@destory')->name('images.destroy');
         });
