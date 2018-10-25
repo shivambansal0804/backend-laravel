@@ -39,7 +39,7 @@
                             Created <strong>{{ $item->created_at->diffForHumans() }}</strong>
                         </small>
                             <div class="text-right d-block">
-                                <a class="btn btn--sm type--uppercase" href="{{route('users.show', $item->uuid)}}">
+                                <a class="btn btn--sm type--uppercase" href="{{route('campaigns.show', $item->uuid)}}">
                                 <span class="btn__text">
                                     Show Campaign
                                 </span>

@@ -17,6 +17,9 @@ class SubscriberController extends Controller
      */
     public function index()
     {
+        for ($i=0; $i < 100; $i++) { 
+            $this->create('testemail'.$i.'@app.com');
+        }
         return view('subscribers.index')->withSubscribers(Subscriber::all());
     }
 
@@ -95,4 +98,5 @@ class SubscriberController extends Controller
     {
         return $this->create($request->email);
     }
+
 }

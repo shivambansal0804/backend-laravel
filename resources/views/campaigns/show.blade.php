@@ -33,7 +33,7 @@
                         Edit
                     </span>
                 </a>
-                <a href="" class="btn btn--sm type--uppercase">
+                <a href="{{ route('campaigns.send', $campaign->uuid ) }}" class="btn btn--sm type--uppercase">
                     <span class="btn__text">
                         Send
                     </span>

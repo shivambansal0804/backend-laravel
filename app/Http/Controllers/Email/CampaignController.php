@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Email;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Email\Campaign;
+use App\Jobs\{SendCampaign};
 
 class CampaignController extends Controller
 {
@@ -91,5 +92,14 @@ class CampaignController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function send($uuid)
+    {
+        $campaign = Campaign::whereUuid($uuid)->firstOrFail();
+        dispatch(new SendCampaign($campaign));
+
+        session()->flash('success', $campaign->name.', is sending');
+        return redirect()->route('campaigns.index');
     }
 }

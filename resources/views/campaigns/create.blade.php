@@ -72,6 +72,7 @@
                     
                 } )
 				.then( e => {
+                    console.log(e)
                     editor = e;
 				} )
 				.catch( error => {

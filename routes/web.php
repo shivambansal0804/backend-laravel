@@ -76,6 +76,7 @@ Route::group(['prefix' => 'council', 'middleware' => ['role:council|superuser', 
         Route::post('/', 'Email\CampaignController@store')->name('campaigns.store');
         Route::get('/{uuid}', 'Email\CampaignController@show')->name('campaigns.show');
         Route::get('/{uuid}/edit', 'Email\CampaignController@edit')->name('campaigns.edit');
+        Route::get('/{uuid}/send', 'Email\CampaignController@send')->name('campaigns.send');
         Route::put('/{uuid}', 'Email\CampaignController@update')->name('campaigns.update');
         Route::delete('/{uuid}', 'Email\CampaignController@destroy')->name('campaigns.destroy');
     });
