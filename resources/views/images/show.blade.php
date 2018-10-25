@@ -18,6 +18,7 @@
                         <span><small>by {{ $image->user->name }} , Posted in {{ $image->album->name }}</small></span>
                     </p>
                     <div>
+                    @if ($image->status == 'draft')
                         @if ((auth()->user()->id == $image->user->id) || auth()->user()->can('publish-image'))
                             <a class="btn btn--sm type--uppercase" href="{{ route('images.edit', [$image->album->uuid, $image->uuid] )}}">
                                 <span class="btn__text">
@@ -31,26 +32,30 @@
                                     Delete 
                                 </span>
                             </a>
-                            @if (!auth()->user()->can('publish-story'))
-                                <a class="btn btn--sm type--uppercase" href="#">
+                            @if (!auth()->user()->can('publish-image'))
+                                <a class="btn btn--sm type--uppercase" href="{{ route('images.submit', [ $image->album->uuid, $image->uuid ]) }}">
                                     <span class="btn__text">
                                         Submit for Approval
                                     </span>
                                 </a>
                             @endif
                         @endif
-                        @if (auth()->user()->can('publish-image'))
-                            <a class="btn btn--sm type--uppercase" href="#">
+                    @endif
+                        
+                    @if (auth()->user()->can('publish-image'))
+                        @if ($image->status == 'pending')
+                            <a class="btn btn--sm type--uppercase" href="{{ route('images.publish', [ $image->album, $image->uuid]) }}">
                                 <span class="btn__text">
                                     Publish
                                 </span>
-                            </a>
-                            <a class="btn btn--sm type--uppercase" href="#">
-                                <span class="btn__text">
-                                    Save to drafts
-                                </span>
-                            </a>
+                            </a>    
                         @endif
+                        <a class="btn btn--sm type--uppercase" href="#">
+                            <span class="btn__text">
+                                Save to drafts
+                            </span>
+                        </a>
+                    @endif
                     </div>
                 </div>
             </div>

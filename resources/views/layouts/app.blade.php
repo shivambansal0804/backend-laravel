@@ -31,26 +31,26 @@
     <a class="back-to-top inner-link" href="#app" data-scroll-class="100vh:active">
         <i class="stack-interface stack-up-open-big"></i>
     </a>
-    {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script> --}}
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
-        <script src="/js/flickity.min.js"></script>
-        <script src="/js/easypiechart.min.js"></script>
-        <script src="/js/parallax.js"></script>
-        <script src="/js/typed.min.js"></script>
-        <script src="/js/datepicker.js"></script>
-        <script src="/js/isotope.min.js"></script>
-        <script src="/js/ytplayer.min.js"></script>
-        <script src="/js/lightbox.min.js"></script>
-        <script src="/js/granim.min.js"></script>
-        <script src="/js/jquery.steps.min.js"></script>
-        <script src="/js/countdown.min.js"></script>
-        <script src="/js/twitterfetcher.min.js"></script>
-        <script src="/js/spectragram.min.js"></script>
-        <script src="/js/smooth-scroll.min.js"></script>
-        <script src="/js/scripts.js"></script>
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
-    @yield('scripts')
+
+        {{-- Theme Scripts --}}
+        <script src="/js/app/jquery-3.1.1.min.js"></script>
+        <script src="/js/app/flickity.min.js"></script>
+        <script src="/js/app/easypiechart.min.js"></script>
+        <script src="/js/app/parallax.js"></script>
+        <script src="/js/app/typed.min.js"></script>
+        <script src="/js/app/datepicker.js"></script>
+        <script src="/js/app/isotope.min.js"></script>
+        <script src="/js/app/ytplayer.min.js"></script>
+        <script src="/js/app/lightbox.min.js"></script>
+        <script src="/js/app/granim.min.js"></script>
+        <script src="/js/app/jquery.steps.min.js"></script>
+        <script src="/js/app/countdown.min.js"></script>
+        <script src="/js/app/twitterfetcher.min.js"></script>
+        <script src="/js/app/spectragram.min.js"></script>
+        <script src="/js/app/smooth-scroll.min.js"></script>
+        <script src="/js/app/scripts.js"></script>
+
+        {{-- Page Scripts --}}
+        @yield('scripts')
 </body>
 </html>

@@ -111,4 +111,13 @@ class ImageController extends Controller
     {
         //
     }
+
+    public function submit($uuid, $image)
+    {
+        auth()->user()->image()->whereUuid($image)->firstOrFail()->update([
+            'status'    => 'pending'
+        ]);
+
+        return redirect()->route('albums.show', $uuid);
+    }
 }

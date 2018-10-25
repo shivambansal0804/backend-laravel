@@ -62,6 +62,30 @@
                             </div>
                         </div>
                     </li>
+                    {{-- Category option --}}
+                    <li class="dropdown">
+                        <span class="dropdown__trigger">
+                            Category
+                        </span>
+                        <div class="dropdown__container">
+                            <div class="dropdown__content">
+                                <ul class="menu-vertical">
+                                    <li>
+                                        <a href="{{ route('categories.index') }}">
+                                            All categories
+                                        </a>
+                                    </li>
+                                    @if (auth()->user()->can('create-category'))
+                                    <li>
+                                        <a href="{{ route('categories.create') }}">
+                                            Create
+                                        </a>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
                 @endif
 
                 @if (!auth()->user()->hasRole('columnist'))
@@ -103,30 +127,7 @@
                     </li>
                 @endif
 
-                {{-- Category option --}}
-                <li class="dropdown">
-                    <span class="dropdown__trigger">
-                        Category
-                    </span>
-                    <div class="dropdown__container">
-                        <div class="dropdown__content">
-                            <ul class="menu-vertical">
-                                <li>
-                                    <a href="{{ route('categories.index') }}">
-                                        All categories
-                                    </a>
-                                </li>
-                                @if (auth()->user()->can('create-category'))
-                                <li>
-                                    <a href="{{ route('categories.create') }}">
-                                        Create
-                                    </a>
-                                </li>
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                </li>
+                
 
                 @if (auth()->user()->hasRole('superuser'))
                 <hr>

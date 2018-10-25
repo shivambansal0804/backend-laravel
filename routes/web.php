@@ -183,14 +183,15 @@ Route::middleware(['auth', 'checkActivatedUser'])->group(function () {
         Route::put('/{uuid}', 'AlbumController@update')->name('albums.update');
         Route::get('/{uuid}/submit', 'AlbumController@submit')->name('albums.submit');
         Route::delete('/{uuid}', 'AlbumController@destroy')->name('albums.destroy');
-        // Images Routes
         
+        // Images Routes
         Route::group(['prefix' => '{uuid}/images', 'middleware' => 'CheckAlbum'], function() {
             Route::get('/', 'ImageController@index')->name('images.index');
             Route::get('/create', 'ImageController@create')->name('images.create');
             Route::post('/', 'ImageController@store')->name('images.store');
             Route::get('/{image}', 'ImageController@show')->name('images.show');
             Route::get('/{image}/edit', 'ImageController@edit')->name('images.edit');
+            Route::get('/{image}/submit', 'ImageController@submit')->name('images.submit');
             Route::put('/{image}', 'ImageController@update')->name('images.update');
             Route::delete('/{image}', 'ImageController@destory')->name('images.destroy');
         });
