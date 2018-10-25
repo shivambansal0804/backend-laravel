@@ -7,7 +7,7 @@
     </div>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-9 col-lg-7">
+            <div class="col-md-8 col-lg-6" >
                 <h1>
                     {{ $album->name }}
                 </h1>
@@ -15,13 +15,18 @@
                     Stack offers a clean and contemporary look to suit a range of purposes from corporate, tech startup, marketing site to digital
                     storefront.
                 </p>
+                
                 @if (auth()->user()->can('delete-album'))
-                    <a class="btn btn--sm type--uppercase" href="#">
+                    <a class="btn btn--sm type--uppercase" href="{{ route('albums.index') }}" onclick="event.preventDefault();
+                        document.getElementById('delete-form').submit();">
                         <span class="btn__text">
                             Delete 
                         </span>
                     </a>
+                    
                 @endif
+
+
 
                 @if (auth()->user()->can('update-album'))
                     <a class="btn btn--sm type--uppercase" href="{{ route('albums.edit', $album->uuid) }}">
@@ -31,15 +36,17 @@
                 </a>
                 @endif
                 <a class="btn btn--sm type--uppercase" href="{{ route('images.create', $album->uuid) }}">
-                    <span class="btn__text">
-                        Add Images
-                    </span>
+                    <span class="btn__text">Add Images</span>
                 </a>
+           
             </div>
+            
         </div>
         <!--end of row-->
+         <form id="delete-form" action="{{route('albums.destroy', $album->uuid)}}" method="post">@csrf @method('DELETE')</form>
     </div>
     <!--end of container-->
+
 </section>
 
 @if ($subs->count())

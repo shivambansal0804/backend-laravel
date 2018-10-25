@@ -62,7 +62,7 @@ class AlbumController extends Controller
         $album = Album::whereUuid($uuid)->with('image')->first();
 
         $subs = $album->child()->get();
-        return $album;
+        
         return view('albums.show', ['album' => $album, 'subs' => $subs]);
     }
 
@@ -97,7 +97,6 @@ class AlbumController extends Controller
         $data = [
             'name'             => $request->name,
             'biliner'           => $request->biliner,
-            'status'            => $request->status,
             'cover'             => $request->cover
         ];
 
@@ -106,7 +105,7 @@ class AlbumController extends Controller
         $album->update($data);
 
         if (isset($request['cover'])) {
-        // $album -> remove image
+            // $album -> remove image
             $album->clearMediaCollection('covers');
             $album->addMediaFromRequest('cover')->toMediaCollection('covers');
         } 
@@ -132,11 +131,11 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         $album = auth()->user()->album()->whereUuid($uuid)->firstOrFail();
         $name = $album->name;
-        
+       
         $album->delete();
 
         session()->flash('success', $name.', Deleted!');
