@@ -15,20 +15,29 @@
 
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <form method="POST" action="{{ route('images.store', $album_uuid ) }}" class="row" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('images.store', $album_uuid ) }}" class="row mt-0" enctype="multipart/form-data">
                     @csrf
 
                     <div class="col-md-12">
-                        <h4 class="mb-0 mt-1">Upload Image</h4>
+                        <label>Name</label>
+                        <input type="text" name="name" placeholder="Name" class="validate-required" value="{{ old('name') ? old('name') : '' }}"
+                            required />
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <label>Biliner</label>
+                        <input type="text" name="biliner" placeholder="Biliner" class="validate-required" value="{{ old('biliner') ? old('biliner') : '' }}"
+                            required />
                     </div>
 
                     <div class="col-md-12">
                         <label for="">Cover</label>
                         <input type="file" name="image" id="">
+                        <br>
                     </div>
 
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn--primary type--uppercase" href="#update-section" data-scroll>
+                        <button type="submit" class="btn btn--sm type--uppercase" href="#update-section" data-scroll>
                             <span class="btn__text">
                                 Upload
                             </span>

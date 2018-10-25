@@ -15,9 +15,16 @@ class ImageController extends Controller
      */
     public function index($uuid)
     {
-        $images = auth()->user()->album()->whereUuid($uuid)->firstOrFail()->image()->get();
+        $images = \App\Models\Album::whereUuid($uuid)->firstOrFail()->image()->where('user_id', auth()->user()->id)->get();
 
-        return $images;
+        return view('images.index')->withImages($images);
+    }
+
+    public function me()
+    {
+        $images = auth()->user()->image()->get();
+
+        return view('images.me')->withImages($images);
     }
 
     /**
@@ -38,8 +45,11 @@ class ImageController extends Controller
      */
     public function store(StoreImage $request, $uuid)
     {
-        $image = auth()->user()->album()->whereUuid($uuid)->firstOrFail()->image()->create([
-            'user_id' => auth()->user()->id
+        $image = \App\Models\Album::whereUuid($uuid)->firstOrFail()->image()->create([
+            'user_id' => auth()->user()->id,
+            'name'    => $request->name,
+            'biliner' => $request->biliner,
+            'status'  => 'draft'
         ]);
 
         if($request->hasFile('image')) {
@@ -57,7 +67,8 @@ class ImageController extends Controller
      */
     public function show($uuid /** Album Uuid */, $image /** Image Uuid */)
     {
-        $item = \App\Models\Album::whereUuid($uuid)->firstOrFail()->image()->whereUuid($image)->with('user')->firstOrFail();
+        $item = \App\Models\Album::whereUuid($uuid)->firstOrFail()->image()->whereUuid($image)->with('user', 'album')->firstOrFail();
+    
         return view('images.show', ['image' => $item]);
     }
 
@@ -67,9 +78,15 @@ class ImageController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function edit(Image $image)
+    public function edit($uuid, $image)
     {
-        //
+        if (auth()->user()->can('publish-story')) {
+            $image = Image::whereUuid($image)->firstOrFail();
+        }
+        else {
+            $image = auth()->user()->image()->whereUuid($image)->firstOrFail();
+        }
+        return view('images.edit', ['image' => $image]);
     }
 
     /**

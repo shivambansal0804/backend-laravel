@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUser;
-use App\Models\{ Permission, Role };
+use App\{ Permission, Role };
 use App\User;
 use App\Events\UserHasRegistered;
 

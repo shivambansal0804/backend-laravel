@@ -35,7 +35,7 @@ return [
         ],
         'photographer' => [
             'profile' => 'r,u',
-            'album' => 'r'
+            'album' => 'r',
         ],
     ],
     'permissions_map' => [

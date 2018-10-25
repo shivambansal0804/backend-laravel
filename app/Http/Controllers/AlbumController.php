@@ -16,7 +16,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::all();
+        $albums = Album::where('album_id', NULL)->get();
         return view('albums.index', ['albums' => $albums]);
     }
 
@@ -27,7 +27,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        return view('albums.create');
+        return view('albums.create')->withAlbums(Album::all());
     }
 
     /**
@@ -39,7 +39,10 @@ class AlbumController extends Controller
     public function store(StoreAlbum $request)
     {
         $album = auth()->user()->album()->create([
-            'name' => $request->name
+            'name'      => $request->name,
+            'biliner'   => $request->biliner,
+            'album_id'  => isset($request->album_id) ? $request->album_id : NULL,
+            'status'    => 'draft'
         ]); 
 
         if (isset($request['cover'])) {
@@ -57,13 +60,13 @@ class AlbumController extends Controller
      */
     public function show($uuid)
     {
-        $images = [];
+        $album = Album::whereUuid($uuid)->firstOrFail();
 
-        $album = Album::whereUuid($uuid)->with('image')->first();
+        $images = $album->image()->where('status', '!=', 'draft')->get();
 
-        $subs = $album->child()->get();
+        $subs = $album->child()->with('user')->get();
         
-        return view('albums.show', ['album' => $album, 'subs' => $subs]);
+        return view('albums.show', ['album' => $album, 'subs' => $subs, 'images' => $images ]);
     }
 
     /**
@@ -94,23 +97,21 @@ class AlbumController extends Controller
      */
     public function update(Request $request, $uuid)
     {
-        $data = [
-            'name'             => $request->name,
-            'biliner'           => $request->biliner,
-            'cover'             => $request->cover
-        ];
 
         $album = Album::whereUuid($uuid)->firstOrFail();
         
-        $album->update($data);
+        $album->update([
+            'name'      => $request->name,
+            'biliner'   => $request->biliner,
+            'cover'     => $request->cover
+        ]);
 
         if (isset($request['cover'])) {
-            // $album -> remove image
             $album->clearMediaCollection('covers');
             $album->addMediaFromRequest('cover')->toMediaCollection('covers');
         } 
 
-        return redirect()->route('albums.index');
+        return redirect()->route('albums.show', $album->uuid);
     }
 
     public function submit($uuid)

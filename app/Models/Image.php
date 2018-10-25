@@ -13,7 +13,7 @@ class Image extends Model implements HasMedia
     use Uuids;
     use HasMediaTrait;
 
-    protected $fillable = ['user_id', 'album_id'];
+    protected $fillable = ['user_id', 'album_id', 'name', 'biliner'];
 
     public function registerMediaConversions(Media $media = null)
     {

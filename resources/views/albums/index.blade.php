@@ -27,7 +27,7 @@
                             <h4>{{ $item->name }}</h4>
                             <a href="{{ route('albums.show', $item->uuid) }}">
                                 Explore Gallery
-                            </a>
+                            </a> 
                         </div>
                     </div>
                     <!--end of row-->

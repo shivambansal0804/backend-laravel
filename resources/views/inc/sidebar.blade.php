@@ -98,6 +98,9 @@
                             </div>
                         </div>
                     </li>
+                    <li>
+                        <a href="{{ route('images.me') }}">Images</a>
+                    </li>
                 @endif
 
                 {{-- Category option --}}
@@ -165,10 +168,7 @@
                 </li>
                 @endif
 
-                @if (!auth()->user()->hasRole('council')) 
-                    <li>
-                        <a href="{{ route('subscribers.index')}}">Subscribers</a>
-                    </li>
+                @if (auth()->user()->hasRole(['council', 'superuser'])) 
                     <li class="dropdown">
                         <span>
                             Campaigns
@@ -187,6 +187,9 @@
                                 </ul>
                             </div>
                         </div>
+                    </li>
+                    <li>
+                        <a href="{{ route('subscribers.index')}}">Subscribers</a>
                     </li>
                 @endif
                 

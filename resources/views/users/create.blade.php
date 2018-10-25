@@ -15,7 +15,7 @@
         
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <form method="POST" action="{{ route('users.store') }}" class="row">
+                <form method="POST" action="{{ route('users.store') }}" class="row mt-0">
                     @csrf
                     <div class="col-md-12">
                         <label>Name</label>
@@ -39,12 +39,14 @@
                         @endforeach
                     </div>
 
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Create new User') }}
-                            </button>
-                        </div>
+                    <div class="col-md-12">
+                        <br>
+                    </div>
+
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn--sm">
+                            Create
+                        </button>
                     </div>
                 </form>
             </div>

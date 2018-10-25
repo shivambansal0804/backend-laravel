@@ -11,9 +11,8 @@
                 <h1>
                     {{ $album->name }}
                 </h1>
-                <p class="lead">
-                    Stack offers a clean and contemporary look to suit a range of purposes from corporate, tech startup, marketing site to digital
-                    storefront.
+                <p class="">
+                    {{ $album->biliner }}
                 </p>
                 
                 @if (auth()->user()->can('delete-album'))
@@ -26,8 +25,6 @@
                     
                 @endif
 
-
-
                 @if (auth()->user()->can('update-album'))
                     <a class="btn btn--sm type--uppercase" href="{{ route('albums.edit', $album->uuid) }}">
                     <span class="btn__text">
@@ -37,6 +34,9 @@
                 @endif
                 <a class="btn btn--sm type--uppercase" href="{{ route('images.create', $album->uuid) }}">
                     <span class="btn__text">Add Images</span>
+                </a>
+                <a class="btn btn--sm type--uppercase" href="{{ route('images.index', $album->uuid) }}">
+                    <span class="btn__text">Uploads</span>
                 </a>
            
             </div>
@@ -62,8 +62,8 @@
                         <div class="col-md-12">
                             <h4>{{ $item->name }}</h4>
                             <a href="{{ route('albums.show', $item->uuid) }}">
-                                    Explore Gallery
-                                </a>
+                                Explore Gallery
+                            </a>
                         </div>
                     </div>
                     <!--end of row-->
@@ -84,7 +84,7 @@
                 $first  = true;
                 $i = 0;
             @endphp
-            @foreach ($album->image as $item)
+            @foreach ($images as $item)
 
                 
                 <div class="masonry__item {{ ($open) ? 'col-lg-8' : 'col-lg-4' }} col-md-6 col-12" data-masonry-filter="Digital">
@@ -99,6 +99,8 @@
                                 <div class="project-thumb__title middle text-center">
                                     <h5>Name </h5>
                                     <span>{{ $item->biliner }}</span>
+                                    <br>
+                                    <span><small>Posted by {{ $item->user->name}}</small></span>
                                 </div>
                             </div>
                         </a>
